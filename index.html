@@ -1,0 +1,62 @@
+<html>
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+
+</head>
+
+<body>
+
+<div id='text'></div>
+
+<script>
+$.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=5', function(data) {
+	//console.log(data);
+	//console.log(data.categories[1].name);
+	var total_athletes = 0;
+	$.each(data.categories, function(index, value){
+		$('#text').append( '<h2>' + value.name + '</h2>' );
+		$.each(value.competitors, function(index2, athlete) {
+			//if (athlete.country_short == 'SLO') {
+				var delta = athlete.place - athlete.place_prev;
+				if(delta > 0) {
+				   delta = '&#8593;' + delta + ' position(s)';
+				}
+				if(delta < 0) {
+				   delta = '&#8595;' + delta + ' position(s)';
+				}
+				if(delta === 0) {
+				   delta = '';
+				}
+
+				console.log(athlete);
+				$('#text').append( athlete.place 
+					+ ') ' 
+					+ athlete.family_name 
+					+ ', ' 
+					+ athlete.given_name 
+					+ ' (' 
+					+ athlete.country_short 
+					+ ') ' 
+					+ delta 
+					+ ' (' 
+					+ athlete.points 
+					+ ' points) ' 
+					+'<br />'
+				);
+				total_athletes++;
+			//}
+		});
+
+	//	console.log(value);
+	//	$('#text').append( ' ' + data.categories[1].competitors[0].family_name );
+
+	});
+
+	$('#text').prepend('<p>Total Athletes shown:' + total_athletes);
+
+});
+</script>
+
+
+</body>
+</html>
