@@ -1,7 +1,9 @@
 <html>
 <head>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
 
   
 </head>
@@ -11,14 +13,16 @@
 <div id='text'></div>
 
 <script>
-$.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=5', function(data) {
+limit = $.url().param('limit') || 3;
+$.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
 	//console.log(data);
 	//console.log(data.categories[1].name);
+	console.log($.url().param('country'));
 	var total_athletes = 0;
 	$.each(data.categories, function(index, value){
 		$('#text').append( '<h2>' + value.name + '</h2>' );
 		$.each(value.competitors, function(index2, athlete) {
-			//if (athlete.country_short == 'SLO') {
+			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
 				var delta = athlete.place - athlete.place_prev;
 				if(delta > 0) {
 				   delta = '&#8593;' + delta + ' position(s)';
@@ -46,7 +50,7 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 					+'<br />'
 				);
 				total_athletes++;
-			//}
+			}
 		});
 
 	//	console.log(value);
