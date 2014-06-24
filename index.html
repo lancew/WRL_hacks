@@ -25,9 +25,9 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
 
 				var delta =Math.abs(athlete.place - athlete.place_prev);
-				if ( athlete.place > athlete.place_prev) {
+				if ( athlete.place < athlete.place_prev) {
 				   delta = '&#8593;' + delta + ' position(s)';
-				} else if ( athlete.place < athlete.place_prev ) {
+				} else if ( athlete.place > athlete.place_prev ) {
 				   delta = '&#8595;' + delta + ' position(s)';
 				} else 	{
 				   delta = '';
