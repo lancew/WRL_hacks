@@ -19,7 +19,7 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 	//console.log(data.categories[1].name);
 	console.log($.url().param('country'));
 	var total_athletes = 0;
-	var top_mover = {delta: 0, athlete: ''};
+	var top_mover = { change: '', athlete: '' };
 	
 	$.each(data.categories, function(index, value){
 		$('#text').append( '<h2>' + value.name + '</h2>' );
@@ -27,8 +27,8 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
 
 				var delta =Math.abs(athlete.place - athlete.place_prev);
-				if (top_mover.delta < delta) {
-				    top_mover.delta = delta;
+				if (top_mover.change < delta) {
+				    top_mover.change = delta;
 				    top_mover.athlete = athlete;
 				}	
 				if ( athlete.place < athlete.place_prev) {
