@@ -26,16 +26,11 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 				console.log(athlete.place);
 				console.log(athlete.place_prev);
 				var delta = athlete.place - athlete.place_prev;
-				if ( athlete.place > athlete.place_prev) 
-				{
-					delta = '&#8593;' + delta + ' position(s)';
-				} 
-				else if (athlete.place < athlete.place_prev)
-				{
+				if ( athlete.place > athlete.place_prev) {
+				   delta = '&#8593;' + delta + ' position(s)';
+				} else if (athlete.place < athlete.place_prev) {
 				   delta = '&#8595;' + delta + ' position(s)';
-				}
-				else 
-				{
+				} else 	{
 				   delta = '';
 				}
 
