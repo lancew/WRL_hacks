@@ -23,8 +23,7 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 		$('#text').append( '<h2>' + value.name + '</h2>' );
 		$.each(value.competitors, function(index2, athlete) {
 			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
-				console.log(athlete.place);
-				console.log(athlete.place_prev);
+
 				var delta = athlete.place - athlete.place_prev;
 				if ( athlete.place > athlete.place_prev) {
 				   delta = '&#8593;' + delta + ' position(s)';
