@@ -19,8 +19,8 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 	//console.log(data.categories[1].name);
 	console.log($.url().param('country'));
 	var total_athletes = 0;
-	var top_mover;
-	top_mover.delta=0;
+	var top_mover = (delta: 0, athlete: '');
+	
 	$.each(data.categories, function(index, value){
 		$('#text').append( '<h2>' + value.name + '</h2>' );
 		$.each(value.competitors, function(index2, athlete) {
