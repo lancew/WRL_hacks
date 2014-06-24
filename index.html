@@ -24,13 +24,16 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 		$.each(value.competitors, function(index2, athlete) {
 			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
 				var delta = athlete.place - athlete.place_prev;
-				if ( athlete.place > athlete.place_prev) {
+				if ( athlete.place > athlete.place_prev) 
+				{
 					delta = '&#8593;' + delta + ' position(s)';
-				} else if (athlete.place < athlete.place_prev)
+				} 
+				else if (athlete.place < athlete.place_prev)
 				{
 				   delta = '&#8595;' + delta + ' position(s)';
 				}
-				else {
+				else 
+				{
 				   delta = '';
 				}
 
