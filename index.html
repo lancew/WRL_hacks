@@ -15,6 +15,8 @@
 <script>
 var limit = $.url().param('limit') || 3;
 var highest = $.url().param('highest') || 1;
+
+console.log(highest);
 $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
 	//console.log(data);
 	//console.log(data.categories[1].name);
@@ -26,7 +28,7 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 	$.each(data.categories, function(index, value){
 		$('#text').append( '<h2>' + value.name + '</h2>' );
 		$.each(value.competitors, function(index2, athlete) {
-			if (athlete.place > highest) {
+			if (athlete.place >= highest ) {
 			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
 
 				var delta = Math.abs(athlete.place - athlete.place_prev);
