@@ -31,7 +31,7 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 					
 				if ( athlete.place < athlete.place_prev) {
 				   delta = '&#8593;' + delta + ' position(s)';
-				   if (bottom_mover.change > delta) {
+				   if (bottom_mover.change < delta) {
 				      bottom_mover.change = delta;
 				      bottom_mover.athlete = athlete;
 				   }
