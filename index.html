@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
 
-  
+
 </head>
 
 <body>
@@ -14,25 +14,21 @@
 
 <script>
 var limit = $.url().param('limit') || 3;
-var highest = $.url().param('highest') || 1;
 
-console.log(highest);
 $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
-	//console.log(data);
-	//console.log(data.categories[1].name);
-	console.log($.url().param('country'));
 	var total_athletes = 0;
 	var top_mover = { change: '', athlete: '' };
 	var bottom_mover = { change: '', athlete: '' };
-	
+
 	$.each(data.categories, function(index, value){
 		$('#text').append( '<h2>' + value.name + '</h2>' );
 		$.each(value.competitors, function(index2, athlete) {
-			
 			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
-
-				var delta = Math.abs(athlete.place - athlete.place_prev);
-					
+				delta = Math.abs(athlete.place - athlete.place_prev);
+                console.log(athlete);
+                console.log('place:' + athlete.place);
+                console.log('prev:' + athlete.place_prev);
+                console.log('delta: ' + delta);
 				if ( athlete.place < athlete.place_prev) {
 				   delta = '&#8593;' + delta + ' position(s)';
 				   if (bottom_mover.change < delta) {
@@ -50,35 +46,32 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 				}
 
 				console.log(athlete);
-				$('#text').append( athlete.place 
-					+ ') ' 
-					+ athlete.family_name 
-					+ ', ' 
-					+ athlete.given_name 
-					+ ' (' 
-					+ athlete.country_short 
-					+ ') ' 
-					+ delta 
-					+ ' (' 
-					+ athlete.points 
-					+ ' points) ' 
+				$('#text').append( athlete.place
+					+ ') '
+					+ athlete.family_name
+					+ ', '
+					+ athlete.given_name
+					+ ' ('
+					+ athlete.country_short
+					+ ') '
+					+ delta
+					+ ' ('
+					+ athlete.points
+					+ ' points) '
 					+'<br />'
 				);
 				total_athletes++;
 			}
-			
-		});
 
-	//	console.log(value);
-	//	$('#text').append( ' ' + data.categories[1].competitors[0].family_name );
+		});
 
 	});
 
 	$('#text').prepend('<p>Total Athletes shown:' + total_athletes);
-	$('#text').prepend('<p>Top Mover:' 
-	    + top_mover.change 
-	    + '  positions ' 
-	    + top_mover.athlete.family_name 
+	$('#text').prepend('<p>Top Mover:'
+	    + top_mover.change
+	    + '  positions '
+	    + top_mover.athlete.family_name
 	    + ' '
 	    + top_mover.athlete.given_name
 	    + ' '
@@ -86,10 +79,10 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 
 
 
-$('#text').prepend('<p>Bottom Mover:' 
-	    + bottom_mover.change 
-	    + '  positions ' 
-	    + bottom_mover.athlete.family_name 
+$('#text').prepend('<p>Bottom Mover:'
+	    + bottom_mover.change
+	    + '  positions '
+	    + bottom_mover.athlete.family_name
 	    + ' '
 	    + bottom_mover.athlete.given_name
 	    + ' '
