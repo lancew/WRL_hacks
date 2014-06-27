@@ -28,7 +28,7 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 	$.each(data.categories, function(index, value){
 		$('#text').append( '<h2>' + value.name + '</h2>' );
 		$.each(value.competitors, function(index2, athlete) {
-			if (athlete.place >= highest ) {
+			
 			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
 
 				var delta = Math.abs(athlete.place - athlete.place_prev);
@@ -66,7 +66,7 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 				);
 				total_athletes++;
 			}
-			}
+			:
 		});
 
 	//	console.log(value);
