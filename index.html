@@ -66,9 +66,11 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 		});
 
 	});
+	
+	$('#text').prepend('<p>Total Athletes shown:' + total_athletes);
 
 	if(top_mover.athlete && bottom_mover.athlete){
-	$('#text').prepend('<p>Total Athletes shown:' + total_athletes);
+	
 	$('#text').prepend('<p>Top Mover:'
 	    + top_mover.change
 	    + '  positions '
