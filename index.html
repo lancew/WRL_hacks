@@ -67,7 +67,7 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 
 	});
 
-	if(top_mover && bottom_mover){
+	if(top_mover.athlete && bottom_mover.athlete){
 	$('#text').prepend('<p>Total Athletes shown:' + total_athletes);
 	$('#text').prepend('<p>Top Mover:'
 	    + top_mover.change
