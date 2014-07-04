@@ -4,8 +4,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
-
-
+    <title>IJF WRL Hacks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -66,11 +66,11 @@ $.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category
 		});
 
 	});
-	
+
 	$('#text').prepend('<p>Total Athletes shown:' + total_athletes);
 
 	if(top_mover.athlete && bottom_mover.athlete){
-	
+
 	$('#text').prepend('<p>Top Mover:'
 	    + top_mover.change
 	    + '  positions '
@@ -95,6 +95,7 @@ $('#text').prepend('<p>Bottom Mover:'
 
 </script>
 
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>
