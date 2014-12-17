@@ -50,7 +50,7 @@
 <script>
 var limit = $.url().param('limit') || 3;
 
-$.getJSON('https://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
+$.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
 	var total_athletes = 0;
 	var top_mover = { change: '', athlete: '' };
 	var bottom_mover = { change: '', athlete: '' };
