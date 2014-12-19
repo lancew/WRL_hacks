@@ -53,22 +53,22 @@
 <script>
 var limit = $.url().param('limit') || 3;
 
-$.getJSON('http://restcountries.eu/rest/v1/all', function(data){
-    var html = '<select id="nations_list">'
-    $.each(data, function(key, value ) {
-        html += '<option value="' + value.alpha3Code + '">' + value.name + '</option>';
-    });
-    html += '</select>';
-    $('#nations').html(html);
-});
+//$.getJSON('http://restcountries.eu/rest/v1/all', function(data){
+//    var html = '<select id="nations_list">'
+//    $.each(data, function(key, value ) {
+//        html += '<option value="' + value.alpha3Code + '">' + value.name + '</option>';
+//    });
+//    html += '</select>';
+//    $('#nations').html(html);
+//});
 
-$(document).ready( function() {
-    console.log('yes');
-   $('#nation_list').bind("change keyup",function() {
+//$(document).ready( function() {
+//    console.log('yes');
+//   $('#nation_list').bind("change keyup",function() {
   //       location.href = $(this).val();
-           console.log('$(this).val');
-            });
-            });
+//           console.log('$(this).val');
+//            });
+//            });
 
 
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
