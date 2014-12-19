@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>IJF WRL Hacks</title>
-    
+
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
@@ -40,7 +40,10 @@
     <div class="container">
 
       <div class="starter-template">
-        <div id='text'></div>
+        <p>&nbsp</p>
+        <p>&nbsp</p>
+        <div id="nations"></div>
+        <div id="text"></div>
       </div>
 
     </div><!-- /.container -->
@@ -49,6 +52,24 @@
 
 <script>
 var limit = $.url().param('limit') || 3;
+
+$.getJSON('http://restcountries.eu/rest/v1/all', function(data){
+    var html = '<select id="nations_list">'
+    $.each(data, function(key, value ) {
+        html += '<option value="' + value.alpha3Code + '">' + value.name + '</option>';
+    });
+    html += '</select>';
+    $('#nations').html(html);
+});
+
+$(document).ready( function() {
+    console.log('yes');
+   $('#nation_list').bind("change keyup",function() {
+  //       location.href = $(this).val();
+           console.log('$(this).val');
+            });
+            });
+
 
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
 	var total_athletes = 0;
@@ -60,10 +81,6 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
 		$.each(value.competitors, function(index2, athlete) {
 			if (athlete.country_short == $.url().param('country') || !$.url().param('country') ) {
 				delta = Math.abs(athlete.place - athlete.place_prev);
-                console.log(athlete);
-                console.log('place:' + athlete.place);
-                console.log('prev:' + athlete.place_prev);
-                console.log('delta: ' + delta);
 				if ( athlete.place < athlete.place_prev) {
 				   delta = '&#8593;' + delta + ' position(s)';
 				   if (bottom_mover.change < delta) {
@@ -80,7 +97,6 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
 				   delta = '';
 				}
 
-				console.log(athlete);
 				$('#text').append( athlete.place
 					+ ') '
 					+ athlete.family_name
