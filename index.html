@@ -32,6 +32,14 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="http://lancew.github.io/WRL_hacks/">Home</a></li>
             <li><a href="http://lancew.github.io/WRL_hacks/?country=GBR&limit=9999">GBR</a></li>
+            <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                          Nation<span class="caret"></span>
+                <ul class="dropdown-menu" role="menu">
+                    <a href="#"></a>
+                    <div id="nations"></div>
+                </ul>
+            <li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -42,7 +50,6 @@
       <div class="starter-template">
         <p>&nbsp</p>
         <p>&nbsp</p>
-        <div id="nations"></div>
         <div id="text"></div>
       </div>
 
@@ -54,21 +61,12 @@
 var limit = $.url().param('limit') || 3;
 
 $.getJSON('http://restcountries.eu/rest/v1/all', function(data){
-    var html = '<select id="nations_list">'
+    var html = '';
     $.each(data, function(key, value ) {
-        html += '<option value="' + value.alpha3Code + '">' + value.name + '</option>';
+        html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.alpha3Code + '&&limit=9999">' + value.name + '</a></li>';
     });
-    html += '</select>';
     $('#nations').html(html);
 });
-
-$(document).ready( function() {
-    console.log('yes');
-   $('#nation_list').bind("change keyup",function() {
-  //       location.href = $(this).val();
-           console.log('$(this).val');
-            });
-            });
 
 
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
