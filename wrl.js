@@ -97,16 +97,16 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         + ' '
         + bottom_mover.athlete.weight_name );
     }
-                $( '#top_scorer' ).html(' <p> Top Scorer: '
-                        + top_scorer.athlete. family_name
-                        + ' '
-                        + top_scorer.athlete.given_name
-                        + ': '
-                        + top_scorer.points
-                        + '</p>'
+        $( '#top_scorer' ).html('<p>'
+                + top_scorer.athlete. family_name
+                + ' '
+                + top_scorer.athlete.given_name
+                + ': '
+                + top_scorer.points
+                + '</p>'
 
-                );
-        $('#top_male').html('<p> Top Male: '
+        );
+        $('#top_male').html('<p>'
             + top_male.family_name
             + ' '
             + top_male.given_name
@@ -114,7 +114,7 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
             + top_male.points || ''
             + ' points</p>'
         );        
-        $('#top_female').html('<p> Top Female: '
+        $('#top_female').html('<p>'
             + top_female.family_name
             + ' '
             + top_female.given_name
