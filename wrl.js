@@ -2,7 +2,7 @@ var limit = $.url().param( 'limit' ) || 3;
 $.getJSON( 'http://restcountries.eu/rest/v1/all', function( data ) {
     var html = '';
     $.each( data, function( key, value ) {
-        html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.alpha3Code + '&&limit=9999" class="glyphicon glyphicon-unchecked">' + value.name + '</a></li>';
+        html += '<li class="presentation"><a role="menuitem" tabindex="-1" href="http://lancew.github.io/WRL_hacks/?country=' + value.alpha3Code + '&&limit=9999" class="glyphicon glyphicon-unchecked">' + value.name + '</a></li>';
     });
     $( '#nations' ).html( html );
 });
