@@ -2,7 +2,7 @@ var limit = $.url().param( 'limit' ) || 3;
 $.getJSON( 'http://restcountries.eu/rest/v1/all', function( data ) {
     var html = '';
     $.each( data, function( key, value ) {
-        html += '<li>&nbsp;<a href="http://lancew.github.io/WRL_hacks/?country=' + value.alpha3Code + '&&limit=9999" class="glyphicon glyphicon-unchecked">' + value.name + '</a></li>';
+        html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.alpha3Code + '&&limit=9999" class="glyphicon glyphicon-unchecked">' + value.name + '</a></li>';
     });
     $( '#nations' ).html( html );
 });
@@ -111,7 +111,7 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
             + ' '
             + top_male.given_name
             + ' '
-            + top_male.points
+            + top_male.points || ''
             + ' points</p>'
         );        
         $('#top_female').html('<p> Top Female: '
@@ -119,7 +119,7 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
             + ' '
             + top_female.given_name
             + ' '
-            + top_female.points
+            + top_female.points || ''
             + ' points</p>'
         );        
 
