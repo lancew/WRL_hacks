@@ -16,6 +16,10 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         change: '',
         athlete: ''
     };
+    var top_scorer = {
+        points : 0,
+        athlete : '',
+    };
     $.each( data.categories, function( index, value ) {
         $( '#text' ).append( '<h2>' + value.name + '</h2>' );
         $.each( value.competitors, function( index2, athlete ) {
@@ -35,6 +39,10 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
                     }
                 } else {
                     delta = '';
+                }
+                if (athlete.points > top_scorer.points){
+                    top_scorer.points = athlete.points;
+                    top_scorer.athlete = athlete;
                 }
                 $( '#text' ).append( athlete.place
                 + ') '
@@ -57,7 +65,7 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
     });
     $( '#text' ).prepend( '<p>Total Athletes shown:' + total_athletes );
     if ( top_mover.athlete && bottom_mover.athlete ) {
-        $( '#no1_faller' ).html( '<p>Top Faller: '
+        $( '#no1_faller' ).html( '<p>Biggest Faller: '
         + top_mover.change
         + '  positions '
         + top_mover.athlete.family_name
@@ -65,7 +73,7 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         + top_mover.athlete.given_name
         + ' '
         + top_mover.athlete.weight_name );
-        $( '#no1_climber' ).html( '<p>Top Climber: '
+        $( '#no1_climber' ).html( '<p>Biggest Climber: '
         + bottom_mover.change
         + '  positions '
         + bottom_mover.athlete.family_name
@@ -74,4 +82,14 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         + ' '
         + bottom_mover.athlete.weight_name );
     }
+                $( '#top_scorer' ).html(' <p> Top Scorer: '
+                        + top_scorer.athlete. family_name
+                        + ' '
+                        + top_scorer.athlete.given_name
+                        + ': '
+                        + top_scorer.points
+                        + '</p>'
+
+                );
+    console.log(top_scorer);
 });
