@@ -12,6 +12,14 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         change: '',
         athlete: ''
     };
+    var top_male = {
+        points: 0,
+        athlete: '',
+    };
+    var top_female = {
+        points: 0,
+        athlete: '',
+    };
     var bottom_mover = {
         change: '',
         athlete: ''
@@ -44,6 +52,13 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
                     top_scorer.points = athlete.points;
                     top_scorer.athlete = athlete;
                 }
+                if (athlete.gender == 'f' && athlete.points > top_female.points) { 
+                    top_female = athlete;
+                }
+                if (athlete.gender == 'm' && athlete.points > top_male.points) { 
+                    top_male = athlete;
+                }
+                console.log(athlete);
                 $( '#text' ).append( athlete.place
                 + ') '
                 + athlete.family_name
@@ -63,9 +78,9 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         });
         $( '#loading' ).html( '' );
     });
-    $( '#text' ).prepend( '<p>Total Athletes shown:' + total_athletes );
+    
     if ( top_mover.athlete && bottom_mover.athlete ) {
-        $( '#no1_faller' ).html( '<p>Biggest Faller: '
+        $( '#no1_faller' ).html( '<p>Top Faller: '
         + top_mover.change
         + '  positions '
         + top_mover.athlete.family_name
@@ -73,7 +88,7 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         + top_mover.athlete.given_name
         + ' '
         + top_mover.athlete.weight_name );
-        $( '#no1_climber' ).html( '<p>Biggest Climber: '
+        $( '#no1_climber' ).html( '<p>Top Climber: '
         + bottom_mover.change
         + '  positions '
         + bottom_mover.athlete.family_name
@@ -91,5 +106,28 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
                         + '</p>'
 
                 );
+        $('#top_male').html('<p> Top Male: '
+            + top_male.family_name
+            + ' '
+            + top_male.given_name
+            + ' '
+            + top_male.points
+            + ' points</p>'
+        );        
+        $('#top_female').html('<p> Top Female: '
+            + top_female.family_name
+            + ' '
+            + top_female.given_name
+            + ' '
+            + top_female.points
+            + ' points</p>'
+        );        
+
+        $('#total_athletes').html('<p> Total Athletes: '
+            + total_athletes
+            + '</p>'
+            );
+
+
     console.log(top_scorer);
 });
