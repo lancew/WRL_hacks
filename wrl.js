@@ -1,8 +1,8 @@
 var limit = $.url().param( 'limit' ) || 3;
-$.getJSON( 'http://restcountries.eu/rest/v1/all', function( data ) {
+$.getJSON( 'http://data.judobase.org/api/get_json?params[action]=country.get_list', function( data ) {
     var html = '';
     $.each( data, function( key, value ) {
-        html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.alpha3Code + '&&limit=9999">' + value.name + '</a></li>';
+        html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.ioc + '&&limit=9999">' + value.name + '</a></li>';
     });
     $( '#nations' ).html( html );
 });
