@@ -2,7 +2,7 @@ var limit = $.url().param( 'limit' ) || 3;
 $.getJSON( 'http://restcountries.eu/rest/v1/all', function( data ) {
     var html = '';
     $.each( data, function( key, value ) {
-        html += '<li class="presentation"><a role="menuitem" tabindex="-1" href="http://lancew.github.io/WRL_hacks/?country=' + value.alpha3Code + '&&limit=9999" class="glyphicon glyphicon-unchecked">' + value.name + '</a></li>';
+        html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.alpha3Code + '&&limit=9999">' + value.name + '</a></li>';
     });
     $( '#nations' ).html( html );
 });
@@ -48,17 +48,13 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
                 } else {
                     delta = '';
                 }
-                if (athlete.points > top_scorer.points){
-                    top_scorer.points = athlete.points;
-                    top_scorer.athlete = athlete;
-                }
                 if (athlete.gender == 'f' && athlete.points > top_female.points) { 
                     top_female = athlete;
                 }
                 if (athlete.gender == 'm' && athlete.points > top_male.points) { 
                     top_male = athlete;
                 }
-                console.log(athlete);
+                
                 $( '#text' ).append( athlete.place
                 + ') '
                 + athlete.family_name
@@ -98,15 +94,7 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         + ' '
         + bottom_mover.athlete.weight_name );
     }
-        $( '#top_scorer' ).html(
-                top_scorer.athlete. family_name
-                + ' '
-                + top_scorer.athlete.given_name
-                + ': '
-                + top_scorer.points
-                
-
-        );
+        
         $('#top_male').html(
             top_male.family_name
             + ' '
@@ -129,5 +117,4 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
             $('#country').html( $.url().param( 'country' ) );
         }
 
-    console.log(top_scorer);
 });
