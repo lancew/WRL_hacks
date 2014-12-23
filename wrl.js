@@ -2,6 +2,7 @@ var limit = $.url().param( 'limit' ) || 3;
 $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=country.get_list', function( data ) {
     var html = '';
     $.each( data, function( key, value ) {
+        if(!value.ioc.search('OJU|PJC|EJU|AJU|JUA')){ return true; }
         html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.ioc + '&&limit=9999">' + value.name + '</a></li>';
     });
     $( '#nations' ).html( html );
