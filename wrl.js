@@ -125,7 +125,9 @@ $.getJSON( 'http://data.judobase.org/api/get_json?params[action]=wrl.by_category
         );        
 
         $('#total_athletes').html(total_athletes);
-
+        if($.url().param( 'country' ) ) {
+            $('#country').html( $.url().param( 'country' ) );
+        }
 
     console.log(top_scorer);
 });
