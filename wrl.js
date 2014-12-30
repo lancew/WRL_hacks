@@ -51,10 +51,10 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
                 } else {
                     delta = '';
                 }
-                if (athlete.gender == 'f' && athlete.points > top_female.points) {
+                if (athlete.gender === 'f' && Number(athlete.points) > Number(top_female.points)) {
                     top_female = athlete;
                 }
-                if (athlete.gender == 'm' && athlete.points > top_male.points) {
+                if (athlete.gender === 'm' && Number(athlete.points) > Number(top_male.points)) {
                     top_male = athlete;
                 }
 
@@ -72,14 +72,16 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         $('#no1_climber').html(
             bottom_mover.change + '  positions ' + bottom_mover.athlete.family_name + ' ' + bottom_mover.athlete.given_name + ' ' + bottom_mover.athlete.weight_name);
     }
-
-    $('#top_male').html(
-        top_male.family_name + ' ' + top_male.given_name + ' ' + top_male.points || '' + ' points'
-    );
-    $('#top_female').html(
-        top_female.family_name + ' ' + top_female.given_name + ' ' + top_female.points || '' + ' points'
-    );
-
+    if (top_male.points) {
+        $('#top_male').html(
+            top_male.family_name + ' ' + top_male.given_name + ' ' + top_male.points + ' points'
+        );
+    }
+    if (top_female.points) {
+        $('#top_female').html(
+            top_female.family_name + ' ' + top_female.given_name + ' ' + top_female.points + ' points'
+        );
+    }
     $('#total_athletes').html(total_athletes);
     if ($.url().param('country')) {
         $('#country').html($.url().param('country'));
