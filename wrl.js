@@ -1,3 +1,4 @@
+"use strict";
 var limit = $.url().param('limit') || 3;
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list', function(data) {
     var html = '';
@@ -35,7 +36,7 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         $('#text').append('<h2>' + value.name + '</h2>');
         $.each(value.competitors, function(index2, athlete) {
             if (athlete.country_short == $.url().param('country') || !$.url().param('country')) {
-                delta = Math.abs(athlete.place - athlete.place_prev);
+                var delta = Math.abs(athlete.place - athlete.place_prev);
                 if (athlete.place < athlete.place_prev) {
                     delta = '&#8593;' + delta + ' position(s)';
                     if (bottom_mover.change < delta) {
