@@ -28,10 +28,6 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         change: '',
         athlete: ''
     };
-    var top_scorer = {
-        points: 0,
-        athlete: '',
-    };
     $.each(data.categories, function(index, value) {
         $('#text').append('<h2>' + value.name + '</h2>');
         $.each(value.competitors, function(index2, athlete) {
