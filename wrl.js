@@ -33,16 +33,19 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         $.each(value.competitors, function(index2, athlete) {
             if (athlete.country_short == $.url().param('country') || !$.url().param('country')) {
                 var delta = Math.abs(athlete.place - athlete.place_prev);
+                var delta_text;
                 if (athlete.place < athlete.place_prev) {
-                    delta = '&#8593;' + delta + ' position(s)';
+                    delta_text = '&#8593;' + delta + ' position(s)';
                     if (bottom_mover.change < delta) {
                         bottom_mover.change = delta;
+                        bottom_mover.delta_text = delta_text;
                         bottom_mover.athlete = athlete;
                     }
                 } else if (athlete.place > athlete.place_prev) {
-                    delta = '&#8595;' + delta + ' position(s)';
+                    delta_text = '&#8595;' + delta + ' position(s)';
                     if (top_mover.change < delta) {
                         top_mover.change = delta;
+                        top_mover.delta_text = delta_text;
                         top_mover.athlete = athlete;
                     }
                 } else {
@@ -55,19 +58,20 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
                     top_male = athlete;
                 }
 
-                $('#text').append(athlete.place + ') ' + athlete.family_name + ', ' + athlete.given_name + ' (' + athlete.country_short + ') ' + delta + ' (' + athlete.points + ' points) ' + '<br />');
+                $('#text').append(athlete.place + ') ' + athlete.family_name + ', ' + athlete.given_name + ' (' + athlete.country_short + ') ' + delta_text + ' (' + athlete.points + ' points) ' + '<br />');
                 total_athletes++;
             }
         });
         $('#loading').html('');
     });
 
-    if (top_mover.athlete && bottom_mover.athlete) {
+    if ( top_mover.athlete) {
         $('#no1_faller').html(
-            top_mover.change + '  positions ' + top_mover.athlete.family_name + ' ' + top_mover.athlete.given_name + ' ' + top_mover.athlete.weight_name);
-
+            top_mover.delta_text + '  positions: <br />' + top_mover.athlete.family_name + ' ' + top_mover.athlete.given_name + ' ' + top_mover.athlete.weight_name);
+    }
+    if ( bottom_mover.athlete) {
         $('#no1_climber').html(
-            bottom_mover.change + '  positions ' + bottom_mover.athlete.family_name + ' ' + bottom_mover.athlete.given_name + ' ' + bottom_mover.athlete.weight_name);
+            bottom_mover.delta_text + '  positions  <br />' + bottom_mover.athlete.family_name + ' ' + bottom_mover.athlete.given_name + ' ' + bottom_mover.athlete.weight_name);
     }
     if (top_male.points) {
         $('#top_male').html(
