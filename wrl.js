@@ -1,5 +1,5 @@
 "use strict";
-var limit = $.url().param('limit') || 3;
+var limit = localStorage.getItem('limit') || $.url().param('limit') || 3;
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list', function(data) {
     var html = '';
     $.each(data, function(key, value) {
@@ -10,6 +10,8 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list
     });
     $('#nations').html(html);
 });
+
+console.log(limit);
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
     var total_athletes = 0;
     var top_mover = {
@@ -28,10 +30,30 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         change: '',
         athlete: ''
     };
+    var country = '';
+
+    if(localStorage.getItem('country') && !$.url().param('country')){
+        country = localStorage.getItem('country');
+    }
+    if($.url().param('country')){
+        localStorage.setItem('country', "" + $.url().param('country'));
+            console.log("---" + $.url().param('country'));
+
+    }
+
+    if(localStorage.getItem('limit') && !$.url().param('limit')){
+        limit = localStorage.getItem('limit');
+    }
+    if($.url().param('limit')){
+        localStorage.setItem('limit', $.url().param('limit'));
+    }
+
+console.log(country);
+
     $.each(data.categories, function(index, value) {
         $('#text').append('<h2>' + value.name + '</h2>');
         $.each(value.competitors, function(index2, athlete) {
-            if (athlete.country_short == $.url().param('country') || !$.url().param('country')) {
+            if (athlete.country_short == country ) {
                 var delta = Math.abs(athlete.place - athlete.place_prev);
                 var delta_text;
                 if (athlete.place < athlete.place_prev) {
@@ -84,8 +106,8 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         );
     }
     $('#total_athletes').html(total_athletes);
-    if ($.url().param('country')) {
-        $('#country').html($.url().param('country'));
+    if (country) {
+        $('#country').html( country);
     }
 
 });
