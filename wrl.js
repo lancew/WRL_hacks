@@ -1,9 +1,11 @@
 "use strict";
-var limit = localStorage.getItem('limit') || $.url().param('limit') || 3;
+var limit = $.url().param('limit') || localStorage.getItem('limit') || 3;
+var country = $.url().param('country') || localStorage.getItem('country') || '';
+
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list', function(data) {
     var html = '';
     $.each(data, function(key, value) {
-        if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA')) {
+        if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
             return true;
         }
         html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.ioc + '&limit=9999">' + value.name + '</a></li>';
@@ -11,7 +13,6 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list
     $('#nations').html(html);
 });
 
-console.log(limit);
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
     var total_athletes = 0;
     var top_mover = {
@@ -30,30 +31,21 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         change: '',
         athlete: ''
     };
-    var country = '';
 
-    if(localStorage.getItem('country') && !$.url().param('country')){
-        country = localStorage.getItem('country');
-    }
     if($.url().param('country')){
         localStorage.setItem('country', "" + $.url().param('country'));
             console.log("---" + $.url().param('country'));
 
     }
 
-    if(localStorage.getItem('limit') && !$.url().param('limit')){
-        limit = localStorage.getItem('limit');
-    }
     if($.url().param('limit')){
         localStorage.setItem('limit', $.url().param('limit'));
     }
 
-console.log(country);
-
     $.each(data.categories, function(index, value) {
         $('#text').append('<h2>' + value.name + '</h2>');
         $.each(value.competitors, function(index2, athlete) {
-            if (athlete.country_short == country ) {
+            if (athlete.country_short == country || country=='' ) {
                 var delta = Math.abs(athlete.place - athlete.place_prev);
                 var delta_text;
                 if (athlete.place < athlete.place_prev) {
@@ -72,7 +64,10 @@ console.log(country);
                     }
                 } else {
                     delta = '';
+                    delta_text = '&#8594; No change in position.';
+
                 }
+
                 if (athlete.gender === 'f' && Number(athlete.points) > Number(top_female.points)) {
                     top_female = athlete;
                 }
