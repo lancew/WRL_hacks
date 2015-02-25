@@ -1,8 +1,10 @@
-"use strict";
+/*global localStorage:false, $:false */
+
 var limit = $.url().param('limit') || localStorage.getItem('limit') || 3;
 var country = $.url().param('country') || localStorage.getItem('country') || '';
 
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list', function(data) {
+    "use strict";
     var html = '';
     $.each(data, function(key, value) {
         if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
@@ -14,6 +16,7 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list
 });
 
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
+    "use strict";
     var total_athletes = 0;
     var top_mover = {
         change: '',
@@ -34,8 +37,6 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
 
     if($.url().param('country')){
         localStorage.setItem('country', "" + $.url().param('country'));
-            console.log("---" + $.url().param('country'));
-
     }
 
     if($.url().param('limit')){
@@ -45,18 +46,18 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
     $.each(data.categories, function(index, value) {
         $('#text').append('<h2>' + value.name + '</h2>');
         $.each(value.competitors, function(index2, athlete) {
-            if (athlete.country_short == country || country=='' ) {
-                var delta = Math.abs(athlete.place - athlete.place_prev);
+            if (athlete.country_short === country || country === '' ) {
+                var delta = Math.abs(athlete.place_prev - athlete.place);
                 var delta_text;
                 if (athlete.place < athlete.place_prev) {
-                    delta_text = '&#8593;' + delta + ' position(s)';
+                    delta_text = '&#8595;' + delta + ' position(s)';
                     if (bottom_mover.change < delta) {
                         bottom_mover.change = delta;
                         bottom_mover.delta_text = delta_text;
                         bottom_mover.athlete = athlete;
                     }
                 } else if (athlete.place > athlete.place_prev) {
-                    delta_text = '&#8595;' + delta + ' position(s)';
+                    delta_text = '&#8593;' + delta + ' position(s)';
                     if (top_mover.change < delta) {
                         top_mover.change = delta;
                         top_mover.delta_text = delta_text;
