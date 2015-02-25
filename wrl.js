@@ -50,14 +50,16 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
                 var delta = Math.abs(athlete.place_prev - athlete.place);
                 var delta_text;
                 if (athlete.place < athlete.place_prev) {
-                    delta_text = '&#8595;' + delta + ' position(s)';
+                    // Climbing
+                    delta_text = '&#8599;' + delta + ' position(s)';
                     if (bottom_mover.change < delta) {
                         bottom_mover.change = delta;
                         bottom_mover.delta_text = delta_text;
                         bottom_mover.athlete = athlete;
                     }
                 } else if (athlete.place > athlete.place_prev) {
-                    delta_text = '&#8593;' + delta + ' position(s)';
+                    // Falling
+                    delta_text = '&#8600;' + delta + ' position(s)';
                     if (top_mover.change < delta) {
                         top_mover.change = delta;
                         top_mover.delta_text = delta_text;
