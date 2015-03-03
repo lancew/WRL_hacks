@@ -2,6 +2,11 @@
 
 var limit = $.url().param('limit') || localStorage.getItem('limit') || 3;
 var country = $.url().param('country') || localStorage.getItem('country') || '';
+if($.url().param('top')){
+    country = '';
+    limit = $.url().param('top');
+}
+
 
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list', function(data) {
     "use strict";
