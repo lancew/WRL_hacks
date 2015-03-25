@@ -110,7 +110,7 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
     }
     $('#total_athletes').html(total_athletes);
     if (country) {
-        $('#country').html( country);
+        $('#country').html( '<img src="blank.gif" class="flag flag-'+ country +'" alt="' + country + ' flag"> <span>' + country + '</span>' );
     }
 
 });
