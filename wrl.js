@@ -15,7 +15,9 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list
         if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
             return true;
         }
-        html += '<li><a href="http://lancew.github.io/WRL_hacks/?country=' + value.ioc + '&limit=9999">' + value.name + '</a></li>';
+        html += '<li>'
+        +  '<img src="blank.gif" class="flag flag-'+ value.ioc +'" alt="' + country + ' flag"> <span>'
+        + '<a href="http://lancew.github.io/WRL_hacks/?country=' + value.ioc + '&limit=9999">' + value.name + '</a></li>';
     });
     $('#nations').html(html);
 });
