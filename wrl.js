@@ -1,26 +1,27 @@
 /*global localStorage:false, $:false */
-
 var limit = $.url().param('limit') || localStorage.getItem('limit') || 3;
 var country = $.url().param('country') || localStorage.getItem('country') || '';
-if($.url().param('top')){
+if ($.url().param('top')) {
     country = '';
     limit = $.url().param('top');
 }
 
-
-$.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list', function(data) {
-    "use strict";
-    var html = '';
-    $.each(data, function(key, value) {
-        if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
-            return true;
-        }
-        html += '<li>'
-        +  '<img src="blank.gif" class="flag flag-'+ value.ioc +'" alt="' + country + ' flag"> <span>'
-        + '<a href="/?country=' + value.ioc + '&limit=9999">' + value.name + '</a></li>';
-    });
+var html = '';
+if (html = localStorage.getItem('nations')) {
     $('#nations').html(html);
-});
+} else {
+    $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list', function(data) {
+        "use strict";
+        $.each(data, function(key, value) {
+            if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
+                return true;
+            }
+            html += '<li>' + '<img src="blank.gif" class="flag flag-' + value.ioc + '" alt="' + country + ' flag"> <span>' + '<a href="/?country=' + value.ioc + '&limit=9999">' + value.name + '</a></li>';
+        });
+        $('#nations').html(html);
+        localStorage.setItem('nations', html);
+    });
+}
 
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&params[category_limit]=' + limit, function(data) {
     "use strict";
@@ -42,18 +43,18 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         athlete: ''
     };
 
-    if($.url().param('country')){
+    if ($.url().param('country')) {
         localStorage.setItem('country', "" + $.url().param('country'));
     }
 
-    if($.url().param('limit')){
+    if ($.url().param('limit')) {
         localStorage.setItem('limit', $.url().param('limit'));
     }
 
     $.each(data.categories, function(index, value) {
         $('#text').append('<h2>' + value.name + '</h2>');
         $.each(value.competitors, function(index2, athlete) {
-            if (athlete.country_short === country || country === '' ) {
+            if (athlete.country_short === country || country === '') {
                 var delta = Math.abs(athlete.place_prev - athlete.place);
                 var delta_text;
                 if (athlete.place < athlete.place_prev) {
@@ -92,11 +93,11 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
         $('#loading').html('');
     });
 
-    if ( top_mover.athlete) {
+    if (top_mover.athlete) {
         $('#no1_faller').html(
             top_mover.delta_text + '  positions: <br />' + top_mover.athlete.family_name + ' ' + top_mover.athlete.given_name + ' ' + top_mover.athlete.weight_name);
     }
-    if ( bottom_mover.athlete) {
+    if (bottom_mover.athlete) {
         $('#no1_climber').html(
             bottom_mover.delta_text + '  positions  <br />' + bottom_mover.athlete.family_name + ' ' + bottom_mover.athlete.given_name + ' ' + bottom_mover.athlete.weight_name);
     }
@@ -112,7 +113,7 @@ $.getJSON('http://data.judobase.org/api/get_json?params[action]=wrl.by_category&
     }
     $('#total_athletes').html(total_athletes);
     if (country) {
-        $('#country').html( '<img src="blank.gif" class="flag flag-'+ country +'" alt="' + country + ' flag"> <span>' + country + '</span>' );
+        $('#country').html('<img src="blank.gif" class="flag flag-' + country + '" alt="' + country + ' flag"> <span>' + country + '</span>');
     }
 
 });
