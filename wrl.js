@@ -7,7 +7,15 @@ if($.url().param('top')){
     limit = $.url().param('top');
 }
 
-
+// Add the new Judobase widget for the country.
+$(function() {
+  var local_country = country === '' ? 'ijf' : country ;
+  $('#judobase').html(
+   '<iframe height="350px" scrolling="no" width="200px" frameborder="0" src="http://data.judobase.org/widget/latest_results/'
+   + local_country.toLowerCase()
+   + '?limit=3"></iframe>'
+);
+});
 $.getJSON('http://data.judobase.org/api/get_json?params[action]=country.get_list', function(data) {
     "use strict";
     var html = '';
