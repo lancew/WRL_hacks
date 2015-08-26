@@ -25,21 +25,7 @@ $.getJSON('http://data.judobase.org/api/'
         + 'get_json?params[action]=country.get_list',
         function(data) {
             var html = '';
-            $.each(data, function(key, value) {
-                if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
-                    return true;
-                }
-                html += '<li>'
-                + '<img src="blank.gif"'
-                + 'class="flag flag-'
-                + value.ioc
-                + '" alt="'
-                + Country
-                + ' flag"> <span>'
-                + '<a href="/?country='
-                + value.ioc + '&limit=9999">'
-                + value.name + '</a></li>';
-            });
+            $.each(data, function(key, value) {html += country_flag_html(value);});
             $('#nations').html(html);
         });
 
@@ -184,3 +170,20 @@ $.getJSON('http://data.judobase.org/api/get_json'
             }
 
         });
+
+
+function country_flag_html(value) {
+    if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
+        return '';
+    }
+    return '<li>'
+    + '<img src="blank.gif"'
+    + 'class="flag flag-'
+    + value.ioc
+    + '" alt="'
+    + Country
+    + ' flag"> <span>'
+    + '<a href="/?country='
+    + value.ioc + '&limit=9999">'
+    + value.name + '</a></li>';
+}
