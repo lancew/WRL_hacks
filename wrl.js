@@ -1,6 +1,6 @@
-/*Global localStorage:false, $:false */
 'use strict';
 
+/*Global localStorage:false, $:false */
 var Limit = $.url().param('limit') || localStorage.getItem('limit') || 3;
 var Country = $.url().param('country') || localStorage.getItem('country') || '';
 if ($.url().param('top')) {
