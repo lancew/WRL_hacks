@@ -46,7 +46,8 @@ engines:
 # exclude_paths key.
 
 exclude_paths:
- - wrl.min
+    - wrl-min.js
+    - test.js
 #- spec/**/*
 #- vendor/**/*
 
