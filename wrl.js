@@ -24,7 +24,6 @@ $(function() {
 $.getJSON('http://data.judobase.org/api/'
         + 'get_json?params[action]=country.get_list',
         function(data) {
-            
             var html = '';
             $.each(data, function(key, value) {
                 if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
@@ -49,8 +48,6 @@ $.getJSON('http://data.judobase.org/api/get_json'
         + '&params[category_limit]='
         + Limit,
         function(data) {
-            
-
             var TotalAthletes = 0;
             var BottomMover = {
                 Change: '',
