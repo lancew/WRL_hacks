@@ -1,4 +1,5 @@
 /*Global localStorage:false, $:false */
+'use strict';
 
 var Limit = $.url().param('limit') || localStorage.getItem('limit') || 3;
 var Country = $.url().param('country') || localStorage.getItem('country') || '';
@@ -23,7 +24,7 @@ $(function() {
 $.getJSON('http://data.judobase.org/api/'
         + 'get_json?params[action]=country.get_list',
         function(data) {
-            'use strict';
+            
             var html = '';
             $.each(data, function(key, value) {
                 if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
@@ -48,7 +49,7 @@ $.getJSON('http://data.judobase.org/api/get_json'
         + '&params[category_limit]='
         + Limit,
         function(data) {
-            'use strict';
+            
 
             var TotalAthletes = 0;
             var BottomMover = {
