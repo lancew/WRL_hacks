@@ -25,6 +25,8 @@ engines:
     enabled: true
   csslint:
     enabled: true
+  codeclimate-fixme:
+    enabled: true
 
 # Engines can analyze files and report issues on them, but you can separately
 # decide which files will receive ratings based on those issues. This is
@@ -43,6 +45,8 @@ engines:
 # You can globally exclude files from being analyzed by any engine using the
 # exclude_paths key.
 
-#exclude_paths:
+exclude_paths:
+ - wrl.min
 #- spec/**/*
 #- vendor/**/*
+
