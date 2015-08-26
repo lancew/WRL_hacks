@@ -25,7 +25,9 @@ $.getJSON('http://data.judobase.org/api/'
         + 'get_json?params[action]=country.get_list',
         function(data) {
             var html = '';
-            $.each(data, function(key, value) {html += country_flag_html(value);});
+            $.each(data, function(key, value) {
+                html += countryFlagHTML(value);
+            });
             $('#nations').html(html);
         });
 
@@ -172,7 +174,7 @@ $.getJSON('http://data.judobase.org/api/get_json'
         });
 
 
-function country_flag_html(value) {
+function countryFlagHTML(value) {
     if (!value.ioc.search('OJU|PJC|EJU|AJU|JUA|IJF')) {
         return '';
     }
