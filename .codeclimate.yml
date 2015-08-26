@@ -48,6 +48,7 @@ engines:
 exclude_paths:
     - wrl-min.js
     - test.js
+    - flags.css
 #- spec/**/*
 #- vendor/**/*
 
