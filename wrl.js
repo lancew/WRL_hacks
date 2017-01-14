@@ -16,12 +16,12 @@ $(function() {
     + 'scrolling="no"'
     + 'width="200px"'
     + 'frameborder="0"'
-    + 'src="http://data.judobase.org/widget/latest_videos/'
+    + 'src="https://data.judobase.org/widget/latest_videos/'
     + LocalCountry.toLowerCase()
     + '?age=sen"></iframe>'
     );
 });
-$.getJSON('http://data.judobase.org/api/'
+$.getJSON('https://data.judobase.org/api/'
         + 'get_json?params[action]=country.get_list',
         function(data) {
             var html = '';
@@ -31,7 +31,7 @@ $.getJSON('http://data.judobase.org/api/'
             $('#nations').html(html);
         });
 
-$.getJSON('http://data.judobase.org/api/get_json'
+$.getJSON('https://data.judobase.org/api/get_json'
         + '?params[action]=wrl.by_category'
         + '&params[category_limit]='
         + Limit,
