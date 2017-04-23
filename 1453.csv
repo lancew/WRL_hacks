@@ -1,74 +1,74 @@
-category,round,winner,ijf_id_winner,country_winner,belt_winner,loser,ijf_id_loser,country_loser,belt_loser
--48,Semi-Final,GALBADRAKH Otgontsetseg,e7df3ce3,Kazakhstan,White,GILIAZOVA Sabina,4447a44c,Russia,Blue
--63,Semi-Final,UNTERWURZACHER Kathrin,3568b768,Austria,White,LIVESEY Amy,1ae99723,Great Britain,Blue
--52,Semi-Final,COHEN Gili,eefacf72,Israel,White,KELDIYOROVA Diyora,acf9bf47,Uzbekistan,Blue
--78,Semi-Final,MAYERSOHN Yarden,a3c5cd42,Israel,Blue,AMANGELDIYEVA Albina,9479be8e,Kazakhstan,White
-+78,Semi-Final,SAYIT Kayra,fa6b51fa,Turkey,White,BATTULGA Munkhtuya,d4877331,Mongolia,Blue
--57,Semi-Final,GJAKOVA Nora,1fd4ad5f,Kosovo,White,TSEREGBAATAR Khulan,8bca7219,Mongolia,Blue
--48,Semi-Final,RISHONY Shira,9ed8abfd,Israel,White,MINSKER Noa,299865d5,Israel,Blue
--63,Semi-Final,URDABAYEVA Marian,4f557bb8,Kazakhstan,Blue,HAECKER Katharina,e227f654,Australia,White
--52,Semi-Final,KRASNIQI Distria,9d154a73,Kosovo,White,TAS Merve,f249b3c7,Turkey,Blue
--78,Semi-Final,DMITRIEVA Anastasiya,a213bdc5,Russia,White,YULDASHOVA Kumush,63471213,Uzbekistan,Blue
-+78,Semi-Final,CERIC Larisa,5fa65a45,Bosnia and Herzegovina,White,PAKENYTE Santa,323e5956,Lithuania,Blue
--57,Semi-Final,NELSON LEVY Timna,656c4511,Israel,White,LIVESEY Bekky,b738dbc2,Great Britain,Blue
--57,Bronze,LIVESEY Bekky,b738dbc2,Great Britain,Blue,BELDIAGINA Kseniia,cfe1f863,Kyrgyzstan,White
--48,Bronze,MINSKER Noa,299865d5,Israel,Blue,SIDEROT Maria,e45aca3f,Portugal,White
--63,Bronze,HAECKER Katharina,e227f654,Australia,Blue,KOSTENKO Valentina,1c614498,Russia,White
--52,Bronze,AZIZOVA Nazakat,a9de75d2,Azerbaijan,White,TAS Merve,f249b3c7,Turkey,Blue
--78,Bronze,RAIFOVA Zarina,7559b71d,Kazakhstan,White,YULDASHOVA Kumush,63471213,Uzbekistan,Blue
-+78,Bronze,KARA Kubra,d1d11b44,Turkey,White,PAKENYTE Santa,323e5956,Lithuania,Blue
--57,Bronze,TSEREGBAATAR Khulan,8bca7219,Mongolia,Blue,NISHANBAYEVA Sevara,db9148a6,Kazakhstan,White
--48,Bronze,GILIAZOVA Sabina,4447a44c,Russia,Blue,GURBANLI Aisha,91d4732e,Azerbaijan,White
--63,Bronze,PIOVESANA Lubjana,9d3af516,Great Britain,White,LIVESEY Amy,1ae99723,Great Britain,Blue
--52,Bronze,BEZALEL Ariel,a6cc267c,Israel,White,KELDIYOROVA Diyora,acf9bf47,Uzbekistan,Blue
--78,Bronze,AMANGELDIYEVA Albina,9479be8e,Kazakhstan,Blue,RAMIREZ Yahima,3ae5f9d3,Portugal,White
-+78,Bronze,BATTULGA Munkhtuya,d4877331,Mongolia,Blue,AKBULUT Sebile,74aa3efc,Turkey,White
--57,Final,GJAKOVA Nora,1fd4ad5f,Kosovo,White,NELSON LEVY Timna,656c4511,Israel,Blue
-+78,Final,SAYIT Kayra,fa6b51fa,Turkey,White,CERIC Larisa,5fa65a45,Bosnia and Herzegovina,Blue
--48,Final,GALBADRAKH Otgontsetseg,e7df3ce3,Kazakhstan,White,RISHONY Shira,9ed8abfd,Israel,Blue
--63,Final,UNTERWURZACHER Kathrin,3568b768,Austria,White,URDABAYEVA Marian,4f557bb8,Kazakhstan,Blue
--52,Final,KRASNIQI Distria,9d154a73,Kosovo,Blue,COHEN Gili,eefacf72,Israel,White
--78,Final,DMITRIEVA Anastasiya,a213bdc5,Russia,Blue,MAYERSOHN Yarden,a3c5cd42,Israel,White
--73,Semi-Final,FARMONOV Mirzokhid,944959f7,Uzbekistan,Blue,GJAKOVA Akil,178638d9,Kosovo,White
--100,Semi-Final,RAKOV Maxim,fb638745,Kazakhstan,Blue,ILYASOV Niyaz,bb5951ec,Russia,White
--81,Semi-Final,SONG Minki,4789636b,South Korea,White,KHABACHIROV Murat,5c4b569f,Russia,Blue
--70,Semi-Final,RODRIGUEZ Elvismar,525b6942,Venezuela,White,GERCSAK Szabina,5face99b,Hungary,Blue
--60,Semi-Final,KYRGYZBAYEV Gusman,a8d6fa5c,Kazakhstan,Blue,YANG Yung wei,ddc3f753,Chinese Taipei,White
-+100,Semi-Final,KRPALEK Lukas,27be53c1,Czech Republic,Blue,CULUM Zarko,cac95415,Serbia,White
--90,Semi-Final,GANTULGA Altanbagana,1ca5fdad,Mongolia,Blue,KUKOLJ Aleksandar,8c69492e,Serbia,White
--66,Semi-Final,RYSMAMBETOV Bektur,954ade86,Kyrgyzstan,White,MUKANOV Azamat,d2ed837a,Kazakhstan,Blue
--66,Semi-Final,ABDULZHALILOV Abdula,76ccb3b4,Russia,Blue,DOVDON Altansukh,aedc6587,Mongolia,White
--73,Semi-Final,VANLIOGLU Hasan,8d5452e4,Turkey,Blue,BUTBUL Tohar,d3e13fd9,Israel,White
--100,Semi-Final,BISULTANOV Adlan,aacbc374,Russia,Blue,REMARENCO Ivan,787e582d,United Arab Emirates,White
--81,Semi-Final,SEMENOV Stanislav,f9a8db26,Russia,Blue,KIRAKOZASHVILI Tamazi,41316779,Georgia,White
--70,Semi-Final,POGACNIK Anka,29e65d8e,Slovenia,Blue,MATIC Barbara,3826b5b3,Croatia,White
--60,Semi-Final,OZLU Bekir,dc76b447,Turkey,Blue,JAGVARALDORJ Amarbold,5a7d2c83,Mongolia,White
-+100,Semi-Final,KRAKOVETSKII Iurii,cbbebb1e,Kyrgyzstan,Blue,KOKAURI Ushangi,dc4f7517,Azerbaijan,White
--90,Semi-Final,USTOPIRIYON Komronshokh,dea96adc,Tajikistan,White,MAGOMEDOV Magomed,8aa2fee9,Russia,Blue
--90,Bronze,MAGOMEDOV Magomed,8aa2fee9,Russia,Blue,SABIROV Shakhzodbek,118b6cd5,Uzbekistan,White
--66,Bronze,DAVAADORJ Tumurkhuleg,8ff9b542,Mongolia,White,DOVDON Altansukh,aedc6587,Mongolia,Blue
--73,Bronze,BUTBUL Tohar,d3e13fd9,Israel,Blue,DRAKSIC Rok,9737a1ab,Slovenia,White
--100,Bronze,MAMMADOV Elkhan,e2b74e4f,Azerbaijan,White,REMARENCO Ivan,787e582d,United Arab Emirates,Blue
--81,Bronze,NYAMSUREN Dagvasuren,c8b15bc5,Mongolia,White,KIRAKOZASHVILI Tamazi,41316779,Georgia,Blue
--70,Bronze,MATIC Barbara,3826b5b3,Croatia,Blue,UMIRALIYEVA Dilbar,57158656,Kazakhstan,White
--60,Bronze,BAYARAA Amartuvshin,41defc44,Mongolia,White,JAGVARALDORJ Amarbold,5a7d2c83,Mongolia,Blue
-+100,Bronze,TUMENOV Musa,49ad1b63,Russia,White,KOKAURI Ushangi,dc4f7517,Azerbaijan,Blue
--90,Bronze,KUKOLJ Aleksandar,8c69492e,Serbia,Blue,JUNG Hae joo,8efd4554,South Korea,White
--66,Bronze,SHMAILOV Baruch,c3ca934d,Israel,White,MUKANOV Azamat,d2ed837a,Kazakhstan,Blue
--73,Bronze,HEYDAROV Hidayat,f6d7962a,Azerbaijan,White,GJAKOVA Akil,178638d9,Kosovo,Blue
--100,Bronze,ILYASOV Niyaz,bb5951ec,Russia,Blue,KURBONOV Soyib,56b54394,Uzbekistan,White
--81,Bronze,KHABACHIROV Murat,5c4b569f,Russia,Blue,LUCENTI Emmanuel,efa1e757,Argentina,White
--70,Bronze,HOWELL Gemma,7b9a6754,Great Britain,White,GERCSAK Szabina,5face99b,Hungary,Blue
--60,Bronze,KABA Ahmet sahin,d1a394c3,Turkey,White,YANG Yung wei,ddc3f753,Chinese Taipei,Blue
-+100,Bronze,CULUM Zarko,cac95415,Serbia,Blue,ADIYAMAN Semih,1f3361e9,Turkey,White
-+100,Final,KRPALEK Lukas,27be53c1,Czech Republic,White,KRAKOVETSKII Iurii,cbbebb1e,Kyrgyzstan,Blue
--90,Final,GANTULGA Altanbagana,1ca5fdad,Mongolia,White,USTOPIRIYON Komronshokh,dea96adc,Tajikistan,Blue
--66,Final,ABDULZHALILOV Abdula,76ccb3b4,Russia,Blue,RYSMAMBETOV Bektur,954ade86,Kyrgyzstan,White
--73,Final,FARMONOV Mirzokhid,944959f7,Uzbekistan,White,VANLIOGLU Hasan,8d5452e4,Turkey,Blue
--100,Final,BISULTANOV Adlan,aacbc374,Russia,Blue,RAKOV Maxim,fb638745,Kazakhstan,White
--81,Final,SEMENOV Stanislav,f9a8db26,Russia,Blue,SONG Minki,4789636b,South Korea,White
--70,Final,POGACNIK Anka,29e65d8e,Slovenia,Blue,RODRIGUEZ Elvismar,525b6942,Venezuela,White
--60,Final,KYRGYZBAYEV Gusman,a8d6fa5c,Kazakhstan,White,OZLU Bekir,dc76b447,Turkey,Blue
+category,round,winner,ijf_id_winner,dob_winner,country_winner,wrl_points_winner,belt_winner,loser,ijf_id_loser,dob_loser,country_loser,wrl_points_loser,belt_loser
+-48,Semi-Final,GALBADRAKH Otgontsetseg,e7df3ce3,1992-01-25,2680,Kazakhstan,White,GILIAZOVA Sabina,4447a44c,1994-09-30,230,Russia,Blue
+-63,Semi-Final,UNTERWURZACHER Kathrin,3568b768,1992-06-05,2474,Austria,White,LIVESEY Amy,1ae99723,1993-12-31,446,Great Britain,Blue
+-52,Semi-Final,COHEN Gili,eefacf72,1991-06-19,1784,Israel,White,KELDIYOROVA Diyora,acf9bf47,1998-07-13,80,Uzbekistan,Blue
+-78,Semi-Final,MAYERSOHN Yarden,a3c5cd42,1993-06-21,192,Israel,Blue,AMANGELDIYEVA Albina,9479be8e,1988-11-01,1037,Kazakhstan,White
++78,Semi-Final,SAYIT Kayra,fa6b51fa,1988-02-13,1914,Turkey,White,BATTULGA Munkhtuya,d4877331,1988-02-18,122,Mongolia,Blue
+-57,Semi-Final,GJAKOVA Nora,1fd4ad5f,1992-08-17,1074,Kosovo,White,TSEREGBAATAR Khulan,8bca7219,1996-08-02,312,Mongolia,Blue
+-48,Semi-Final,RISHONY Shira,9ed8abfd,1991-02-21,1342,Israel,White,MINSKER Noa,299865d5,1993-06-29,1330,Israel,Blue
+-63,Semi-Final,URDABAYEVA Marian,4f557bb8,1988-04-03,10,Kazakhstan,Blue,HAECKER Katharina,e227f654,1992-07-31,1070,Australia,White
+-52,Semi-Final,KRASNIQI Distria,9d154a73,1995-12-10,1260,Kosovo,White,TAS Merve,f249b3c7,1997-09-21,167,Turkey,Blue
+-78,Semi-Final,DMITRIEVA Anastasiya,a213bdc5,1987-12-03,508,Russia,White,YULDASHOVA Kumush,63471213,1995-02-12,185,Uzbekistan,Blue
++78,Semi-Final,CERIC Larisa,5fa65a45,1991-01-26,1869,Bosnia and Herzegovina,White,PAKENYTE Santa,323e5956,1990-12-11,1562,Lithuania,Blue
+-57,Semi-Final,NELSON LEVY Timna,656c4511,1994-07-07,878,Israel,White,LIVESEY Bekky,b738dbc2,1995-09-19,232,Great Britain,Blue
+-57,Bronze,LIVESEY Bekky,b738dbc2,1995-09-19,232,Great Britain,Blue,BELDIAGINA Kseniia,cfe1f863,1993-01-31,121,Kyrgyzstan,White
+-48,Bronze,MINSKER Noa,299865d5,1993-06-29,1330,Israel,Blue,SIDEROT Maria,e45aca3f,1996-06-25,412,Portugal,White
+-63,Bronze,HAECKER Katharina,e227f654,1992-07-31,1070,Australia,Blue,KOSTENKO Valentina,1c614498,1993-08-10,76,Russia,White
+-52,Bronze,AZIZOVA Nazakat,a9de75d2,1997-06-21,6,Azerbaijan,White,TAS Merve,f249b3c7,1997-09-21,167,Turkey,Blue
+-78,Bronze,RAIFOVA Zarina,7559b71d,1991-05-20,200,Kazakhstan,White,YULDASHOVA Kumush,63471213,1995-02-12,185,Uzbekistan,Blue
++78,Bronze,KARA Kubra,d1d11b44,1995-01-01,38,Turkey,White,PAKENYTE Santa,323e5956,1990-12-11,1562,Lithuania,Blue
+-57,Bronze,TSEREGBAATAR Khulan,8bca7219,1996-08-02,312,Mongolia,Blue,NISHANBAYEVA Sevara,db9148a6,1993-08-15,566,Kazakhstan,White
+-48,Bronze,GILIAZOVA Sabina,4447a44c,1994-09-30,230,Russia,Blue,GURBANLI Aisha,91d4732e,1993-05-28,222,Azerbaijan,White
+-63,Bronze,PIOVESANA Lubjana,9d3af516,1997-01-03,522,Great Britain,White,LIVESEY Amy,1ae99723,1993-12-31,446,Great Britain,Blue
+-52,Bronze,BEZALEL Ariel,a6cc267c,1996-02-14,158,Israel,White,KELDIYOROVA Diyora,acf9bf47,1998-07-13,80,Uzbekistan,Blue
+-78,Bronze,AMANGELDIYEVA Albina,9479be8e,1988-11-01,1037,Kazakhstan,Blue,RAMIREZ Yahima,3ae5f9d3,1979-10-10,235,Portugal,White
++78,Bronze,BATTULGA Munkhtuya,d4877331,1988-02-18,122,Mongolia,Blue,AKBULUT Sebile,74aa3efc,1996-03-25,231,Turkey,White
+-57,Final,GJAKOVA Nora,1fd4ad5f,1992-08-17,1074,Kosovo,White,NELSON LEVY Timna,656c4511,1994-07-07,878,Israel,Blue
++78,Final,SAYIT Kayra,fa6b51fa,1988-02-13,1914,Turkey,White,CERIC Larisa,5fa65a45,1991-01-26,1869,Bosnia and Herzegovina,Blue
+-48,Final,GALBADRAKH Otgontsetseg,e7df3ce3,1992-01-25,2680,Kazakhstan,White,RISHONY Shira,9ed8abfd,1991-02-21,1342,Israel,Blue
+-63,Final,UNTERWURZACHER Kathrin,3568b768,1992-06-05,2474,Austria,White,URDABAYEVA Marian,4f557bb8,1988-04-03,10,Kazakhstan,Blue
+-52,Final,KRASNIQI Distria,9d154a73,1995-12-10,1260,Kosovo,Blue,COHEN Gili,eefacf72,1991-06-19,1784,Israel,White
+-78,Final,DMITRIEVA Anastasiya,a213bdc5,1987-12-03,508,Russia,Blue,MAYERSOHN Yarden,a3c5cd42,1993-06-21,192,Israel,White
+-73,Semi-Final,FARMONOV Mirzokhid,944959f7,1988-02-29,427,Uzbekistan,Blue,GJAKOVA Akil,178638d9,1996-01-04,259,Kosovo,White
+-100,Semi-Final,RAKOV Maxim,fb638745,1986-02-07,732,Kazakhstan,Blue,ILYASOV Niyaz,bb5951ec,1995-08-10,100,Russia,White
+-81,Semi-Final,SONG Minki,4789636b,1992-01-11,40,South Korea,White,KHABACHIROV Murat,5c4b569f,1988-05-14,64,Russia,Blue
+-70,Semi-Final,RODRIGUEZ Elvismar,525b6942,1997-02-14,40,Venezuela,White,GERCSAK Szabina,5face99b,1996-07-09,926,Hungary,Blue
+-60,Semi-Final,KYRGYZBAYEV Gusman,a8d6fa5c,1992-09-28,550,Kazakhstan,Blue,YANG Yung wei,ddc3f753,1997-09-28,81,Chinese Taipei,White
++100,Semi-Final,KRPALEK Lukas,27be53c1,1990-11-15,252,Czech Republic,Blue,CULUM Zarko,cac95415,1996-01-02,118,Serbia,White
+-90,Semi-Final,GANTULGA Altanbagana,1ca5fdad,1995-06-21,646,Mongolia,Blue,KUKOLJ Aleksandar,8c69492e,1991-09-09,1802,Serbia,White
+-66,Semi-Final,RYSMAMBETOV Bektur,954ade86,1992-08-05,246,Kyrgyzstan,White,MUKANOV Azamat,d2ed837a,1987-01-30,920,Kazakhstan,Blue
+-66,Semi-Final,ABDULZHALILOV Abdula,76ccb3b4,1990-10-25,520,Russia,Blue,DOVDON Altansukh,aedc6587,1988-01-06,1794,Mongolia,White
+-73,Semi-Final,VANLIOGLU Hasan,8d5452e4,1988-08-25,390,Turkey,Blue,BUTBUL Tohar,d3e13fd9,1994-01-24,998,Israel,White
+-100,Semi-Final,BISULTANOV Adlan,aacbc374,1989-08-15,1294,Russia,Blue,REMARENCO Ivan,787e582d,1988-08-07,460,United Arab Emirates,White
+-81,Semi-Final,SEMENOV Stanislav,f9a8db26,1990-12-08,150,Russia,Blue,KIRAKOZASHVILI Tamazi,41316779,1996-09-01,206,Georgia,White
+-70,Semi-Final,POGACNIK Anka,29e65d8e,1991-12-23,773,Slovenia,Blue,MATIC Barbara,3826b5b3,1994-12-03,1236,Croatia,White
+-60,Semi-Final,OZLU Bekir,dc76b447,1988-08-30,642,Turkey,Blue,JAGVARALDORJ Amarbold,5a7d2c83,1997-01-27,192,Mongolia,White
++100,Semi-Final,KRAKOVETSKII Iurii,cbbebb1e,1992-08-27,1082,Kyrgyzstan,Blue,KOKAURI Ushangi,dc4f7517,1992-01-10,1132,Azerbaijan,White
+-90,Semi-Final,USTOPIRIYON Komronshokh,dea96adc,1993-01-07,1286,Tajikistan,White,MAGOMEDOV Magomed,8aa2fee9,1991-08-13,614,Russia,Blue
+-90,Bronze,MAGOMEDOV Magomed,8aa2fee9,1991-08-13,614,Russia,Blue,SABIROV Shakhzodbek,118b6cd5,1993-05-29,350,Uzbekistan,White
+-66,Bronze,DAVAADORJ Tumurkhuleg,8ff9b542,1990-09-29,2116,Mongolia,White,DOVDON Altansukh,aedc6587,1988-01-06,1794,Mongolia,Blue
+-73,Bronze,BUTBUL Tohar,d3e13fd9,1994-01-24,998,Israel,Blue,DRAKSIC Rok,9737a1ab,1987-01-02,814,Slovenia,White
+-100,Bronze,MAMMADOV Elkhan,e2b74e4f,1982-02-26,1738,Azerbaijan,White,REMARENCO Ivan,787e582d,1988-08-07,460,United Arab Emirates,Blue
+-81,Bronze,NYAMSUREN Dagvasuren,c8b15bc5,1990-01-22,1530,Mongolia,White,KIRAKOZASHVILI Tamazi,41316779,1996-09-01,206,Georgia,Blue
+-70,Bronze,MATIC Barbara,3826b5b3,1994-12-03,1236,Croatia,Blue,UMIRALIYEVA Dilbar,57158656,1991-03-13,154,Kazakhstan,White
+-60,Bronze,BAYARAA Amartuvshin,41defc44,1996-12-26,294,Mongolia,White,JAGVARALDORJ Amarbold,5a7d2c83,1997-01-27,192,Mongolia,Blue
++100,Bronze,TUMENOV Musa,49ad1b63,1994-08-10,50,Russia,White,KOKAURI Ushangi,dc4f7517,1992-01-10,1132,Azerbaijan,Blue
+-90,Bronze,KUKOLJ Aleksandar,8c69492e,1991-09-09,1802,Serbia,Blue,JUNG Hae joo,8efd4554,1992-12-28,252,South Korea,White
+-66,Bronze,SHMAILOV Baruch,c3ca934d,1994-02-09,1314,Israel,White,MUKANOV Azamat,d2ed837a,1987-01-30,920,Kazakhstan,Blue
+-73,Bronze,HEYDAROV Hidayat,f6d7962a,1997-07-27,500,Azerbaijan,White,GJAKOVA Akil,178638d9,1996-01-04,259,Kosovo,Blue
+-100,Bronze,ILYASOV Niyaz,bb5951ec,1995-08-10,100,Russia,Blue,KURBONOV Soyib,56b54394,1988-02-03,1420,Uzbekistan,White
+-81,Bronze,KHABACHIROV Murat,5c4b569f,1988-05-14,64,Russia,Blue,LUCENTI Emmanuel,efa1e757,1984-11-23,784,Argentina,White
+-70,Bronze,HOWELL Gemma,7b9a6754,1990-06-13,50,Great Britain,White,GERCSAK Szabina,5face99b,1996-07-09,926,Hungary,Blue
+-60,Bronze,KABA Ahmet sahin,d1a394c3,1993-08-27,283,Turkey,White,YANG Yung wei,ddc3f753,1997-09-28,81,Chinese Taipei,Blue
++100,Bronze,CULUM Zarko,cac95415,1996-01-02,118,Serbia,Blue,ADIYAMAN Semih,1f3361e9,1993-02-23,1,Turkey,White
++100,Final,KRPALEK Lukas,27be53c1,1990-11-15,252,Czech Republic,White,KRAKOVETSKII Iurii,cbbebb1e,1992-08-27,1082,Kyrgyzstan,Blue
+-90,Final,GANTULGA Altanbagana,1ca5fdad,1995-06-21,646,Mongolia,White,USTOPIRIYON Komronshokh,dea96adc,1993-01-07,1286,Tajikistan,Blue
+-66,Final,ABDULZHALILOV Abdula,76ccb3b4,1990-10-25,520,Russia,Blue,RYSMAMBETOV Bektur,954ade86,1992-08-05,246,Kyrgyzstan,White
+-73,Final,FARMONOV Mirzokhid,944959f7,1988-02-29,427,Uzbekistan,White,VANLIOGLU Hasan,8d5452e4,1988-08-25,390,Turkey,Blue
+-100,Final,BISULTANOV Adlan,aacbc374,1989-08-15,1294,Russia,Blue,RAKOV Maxim,fb638745,1986-02-07,732,Kazakhstan,White
+-81,Final,SEMENOV Stanislav,f9a8db26,1990-12-08,150,Russia,Blue,SONG Minki,4789636b,1992-01-11,40,South Korea,White
+-70,Final,POGACNIK Anka,29e65d8e,1991-12-23,773,Slovenia,Blue,RODRIGUEZ Elvismar,525b6942,1997-02-14,40,Venezuela,White
+-60,Final,KYRGYZBAYEV Gusman,a8d6fa5c,1992-09-28,550,Kazakhstan,White,OZLU Bekir,dc76b447,1988-08-30,642,Turkey,Blue
 
 +100,21
 +78,13
