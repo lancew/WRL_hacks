@@ -1,28 +1,79 @@
 module Main exposing (main)
 
+{--}
+--}
+
 import Browser as Browser
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
+import Element.Input as Input
+import Html exposing (Html, button, div)
+import Html.Events exposing (onClick)
 import Http
 
 
-model =
-    { nations = [ "Loading Nations..." ]
-    , athletes = [ "Loading Athletes..." ]
+
+-- MAIN
+
+
+main : Program () Model Msg
+main =
+    Browser.element
+        { init = init
+        , subscriptions = subscriptions
+        , update = update
+        , view = view
+        }
+
+
+
+-- MODEL
+
+
+type alias Model =
+    { nations : List String
+    , athletes : List String
     }
 
 
-main =
-    view
+init _ =
+    ( { nations = [ "Loading Nations..." ]
+      , athletes = [ "Loading Athletes..." ]
+      }
+    , Cmd.none
+    )
 
 
-subscriptions =
+
+-- SUBSCRIPTIONS
+
+
+subscriptions model =
     Sub.none
 
 
-view =
+
+-- UPDATE
+
+
+type Msg
+    = GetNations
+
+
+update msg model =
+    case msg of
+        GetNations ->
+            ( { model | nations = "Foo" :: model.nations }, Cmd.none )
+
+
+
+-- VIEW
+
+
+view : Model -> Html Msg
+view model =
     Element.layout [ padding 5, height fill, width fill ] <|
         column [ width fill, height fill ]
             [ row [ width fill, padding 10 ]
@@ -34,15 +85,19 @@ view =
                     , Font.bold
                     , Font.size 36
                     , Font.family
-                        [
-                          Font.serif
+                        [ Font.serif
                         ]
                     ]
                     (text "International Judo Federation World Ranking List")
                 ]
             , row [ padding 5, alignTop, height fill, width fill, spacing 5 ]
                 [ column [ padding 5, height fill, width (fillPortion 1), Border.width 1, Border.rounded 5 ]
-                    [ Element.table [ alignTop, height fill ]
+                    [ Input.button []
+                        { label = text "Get Nations"
+                        , onPress = Just GetNations
+                        }
+                    , Element.table
+                        [ alignTop, height fill ]
                         { data = List.sort model.nations
                         , columns =
                             [ { header = el [ Font.bold ] (Element.text "Nations")
