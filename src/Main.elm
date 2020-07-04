@@ -60,12 +60,15 @@ subscriptions model =
 
 type Msg
     = GetNations
+    | GetAthletes
 
 
 update msg model =
     case msg of
         GetNations ->
-            ( { model | nations = "Foo" :: model.nations }, Cmd.none )
+            ( { model | nations = getNationsFromAPI }, Cmd.none )
+        GetAthletes ->
+            ( { model | athletes = getAthletesFromAPI }, Cmd.none )
 
 
 
@@ -92,12 +95,12 @@ view model =
                 ]
             , row [ padding 5, alignTop, height fill, width fill, spacing 5 ]
                 [ column [ padding 5, height fill, width (fillPortion 1), Border.width 1, Border.rounded 5 ]
-                    [ Input.button []
+                    [ Input.button [ Border.width 5, Border.rounded 5, padding 5 ]
                         { label = text "Get Nations"
                         , onPress = Just GetNations
                         }
                     , Element.table
-                        [ alignTop, height fill ]
+                        [ alignTop, height fill, padding 5 ]
                         { data = List.sort model.nations
                         , columns =
                             [ { header = el [ Font.bold ] (Element.text "Nations")
@@ -110,7 +113,11 @@ view model =
                         }
                     ]
                 , column [ padding 5, height fill, width (fillPortion 4), Border.width 1, Border.rounded 5 ]
-                    [ Element.table [ alignTop, height fill ]
+                    [ Input.button [ Border.width 5, Border.rounded 5, padding 5 ]
+                        { label = text "Get Athletes"
+                        , onPress = Just GetAthletes
+                        }
+                    , Element.table [ alignTop, height fill ]
                         { data = List.sort model.athletes
                         , columns =
                             [ { header = el [ Font.bold ] (Element.text "Athletes")
@@ -127,3 +134,10 @@ view model =
                 [ el [ width fill, Font.center ] (text "www.judowrl.com")
                 ]
             ]
+
+
+getNationsFromAPI =
+    [ "Australia", "Zimbabwe", "New Zealand" ]
+
+getAthletesFromAPI =
+    [ "Wicks, Lance", "Kano, Jigoro", "Koga, Toshihiko", "Adams, Sam" ]
