@@ -1,8 +1,5 @@
 module Main exposing (main)
 
-{--}
---}
-
 import Browser as Browser
 import Element exposing (..)
 import Element.Background as Background
@@ -36,14 +33,16 @@ main =
 type alias Model =
     { nations : List Nation
     , athletes : List String
+    , error : String
     }
 
 
 init _ =
     ( { nations = []
       , athletes = [ "Loading Athletes..." ]
+      , error = ""
       }
-    , Cmd.none
+    , getNationsFromAPI
     )
 
 
@@ -63,6 +62,7 @@ type Msg
     = GetNations
     | GetAthletes
     | FetchNations (Result Http.Error (List Nation))
+    | Foo
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -80,7 +80,10 @@ update msg model =
                     ( { model | nations = nations }, Cmd.none )
 
                 Err _ ->
-                    ( { model | nations = [] }, Cmd.none )
+                    ( { model | nations = [], error = "--- Error: Problem loading nations from IJF ---" }, Cmd.none )
+
+        Foo ->
+            ( model, Cmd.none )
 
 
 
@@ -105,13 +108,12 @@ view model =
                     ]
                     (text "International Judo Federation World Ranking List")
                 ]
+            , row [ width fill ]
+                [ el [ width fill, Font.center, Font.color (Element.rgb 1 0 0) ] (text model.error)
+                ]
             , row [ padding 5, alignTop, height fill, width fill, spacing 5 ]
                 [ column [ padding 5, height fill, width (fillPortion 1), Border.width 1, Border.rounded 5 ]
-                    [ Input.button [ Border.width 5, Border.rounded 5, padding 5 ]
-                        { label = text "Get Nations"
-                        , onPress = Just GetNations
-                        }
-                    , Element.table
+                    [ Element.table
                         [ alignTop, height fill, padding 5 ]
                         { data = model.nations
                         , columns =
@@ -119,7 +121,10 @@ view model =
                               , width = fill
                               , view =
                                     \nation ->
-                                        el [] (Element.text nation.name)
+                                        Input.button []
+                                            { onPress = Just GetAthletes
+                                            , label = Element.text nation.name
+                                            }
                               }
                             ]
                         }
@@ -173,121 +178,3 @@ type alias Nation =
 
 getAthletesFromAPI =
     [ "Wicks, Lance", "Kano, Jigoro", "Koga, Toshihiko", "Adams, Sam" ]
-
-
-
-{--
-
-module Main exposing (main)
-
-import Browser
-import Html exposing (Html, button, div, text, ul, li, button, span)
-import Html.Events exposing (onClick)
-import Json.Decode
-import Http
-
-
-type alias Post =
-    {id_country: String, name: String, ioc: String }
-
-type alias Model = 
-    { posts: List Post, uiState: UiState, error: Maybe String }
-
-
-initialModel : Model
-initialModel =
-    { posts = [], uiState = Init,  error = Nothing }
-
-init: (Model, Cmd Msg)
-init =
-    (initialModel, Cmd.none)
-
-type UiState
-    = Init
-    | Loading
-    | Success
-    | Failure
-
-
-type Msg
-    = InitFetchPosts
-    | FetchPosts (Result Http.Error (List Post))
-
-
-fetchPosts: Cmd Msg
-fetchPosts =
-        Http.get
-            { url = "https://data.judobase.org/api/get_json?params[action]=country.get_list"
-            , expect = Http.expectJson FetchPosts postCollectionDecoder 
-            }
-
-
-postDecoder : Json.Decode.Decoder Post
-postDecoder =
-    Json.Decode.map3 Post
-        (Json.Decode.field "id_country" Json.Decode.string)
-        (Json.Decode.field "name" Json.Decode.string)
-        (Json.Decode.field "ioc" Json.Decode.string)
-
-
-postCollectionDecoder : Json.Decode.Decoder (List Post)
-postCollectionDecoder =
-    Json.Decode.map identity
-        (Json.Decode.list postDecoder)
-
-update : Msg -> Model -> (Model, Cmd Msg)
-update msg model =
-    case msg of
-         InitFetchPosts ->
-            ( { model | uiState = Loading }, fetchPosts )
-
-         FetchPosts result ->
-            case result of
-                Ok posts ->
-                    ( { model | uiState = Success, posts = posts }, Cmd.none )
-
-                Err _ ->
-                    ( { model | uiState = Failure, error = Just "Error" }, Cmd.none )
-
-renderItem: Post -> Html Msg
-renderItem post =
-    li [] [text post.name]
-    
-renderData: Model -> Html Msg
-renderData model =
-    case model.uiState of
-        Init ->
-            span [] []
-        Loading ->
-            span [] [text "Loading..."]
-            
-        Success -> 
-          ul [] (List.map (\post -> renderItem post) model.posts)
-          
-        Failure ->
-            case model.error of 
-                Just error -> 
-                    span [] [text error]
-
-                Nothing ->
-                    span [] []
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ button [onClick InitFetchPosts] [text "Fetch Posts"]
-        , renderData model
-        ]
-
-
-main : Program () Model Msg
-main =
-    Browser.element
-        { view = view
-        , init = \_ -> init
-        , update = update
-        , subscriptions = always Sub.none
-        }
-
-
---}
