@@ -9,7 +9,7 @@ import Element.Input as Input
 import Html exposing (Html, button, div)
 import Html.Events exposing (onClick)
 import Http
-import Json.Decode
+import Json.Decode exposing (errorToString)
 
 
 
@@ -32,14 +32,14 @@ main =
 
 type alias Model =
     { nations : List Nation
-    , athletes : List String
+    , athletes : List Athlete
     , error : String
     }
 
 
 init _ =
     ( { nations = []
-      , athletes = [ "Loading Athletes..." ]
+      , athletes = []
       , error = ""
       }
     , getNationsFromAPI
@@ -60,19 +60,19 @@ subscriptions model =
 
 type Msg
     = GetNations
-    | GetAthletes
+    | GetAthletes String
     | FetchNations (Result Http.Error (List Nation))
-    | Foo
+    | FetchAthletes (Result Http.Error (List Athlete))
+    | Test String
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GetNations ->
             ( model, getNationsFromAPI )
 
-        GetAthletes ->
-            ( { model | athletes = getAthletesFromAPI }, Cmd.none )
+        GetAthletes nationID ->
+            ( model, getAthletesFromAPI )
 
         FetchNations result ->
             case result of
@@ -82,8 +82,30 @@ update msg model =
                 Err _ ->
                     ( { model | nations = [], error = "--- Error: Problem loading nations from IJF ---" }, Cmd.none )
 
-        Foo ->
-            ( model, Cmd.none )
+        FetchAthletes result ->
+            case result of
+                Ok athletes ->
+                    ( { model | athletes = [], error = "I dunno what I am doing" }, Cmd.none )
+
+                Err theError ->
+                    case theError of
+                        Http.BadUrl _ ->
+                            ( { model | athletes = [], error = "--- Error: Problem loading athletes from IJF. Bad URL ---" }, Cmd.none )
+
+                        Http.Timeout ->
+                            ( { model | athletes = [], error = "--- Error: Problem loading athletes from IJF. Timeout ---" }, Cmd.none )
+
+                        Http.NetworkError ->
+                            ( { model | athletes = [], error = "--- Error: Problem loading athletes from IJF. Network Error ---" }, Cmd.none )
+
+                        Http.BadStatus _ ->
+                            ( { model | athletes = [], error = "--- Error: Problem loading athletes from IJF. Bad Status ---" }, Cmd.none )
+
+                        Http.BadBody _ ->
+                            ( { model | athletes = [], error = "--- Error: Problem loading athletes from IJF. Bad Body ---" }, Cmd.none )
+
+        Test data ->
+            ( { model | error = data }, Cmd.none )
 
 
 
@@ -122,26 +144,22 @@ view model =
                               , view =
                                     \nation ->
                                         Input.button []
-                                            { onPress = Just GetAthletes
-                                            , label = Element.text nation.name
+                                            { onPress = Just (GetAthletes nation.id_country)
+                                            , label = Element.text (nation.name ++ " - " ++ nation.id_country)
                                             }
                               }
                             ]
                         }
                     ]
                 , column [ padding 5, height fill, width (fillPortion 4), Border.width 1, Border.rounded 5 ]
-                    [ Input.button [ Border.width 5, Border.rounded 5, padding 5 ]
-                        { label = text "Get Athletes"
-                        , onPress = Just GetAthletes
-                        }
-                    , Element.table [ alignTop, height fill ]
-                        { data = List.sort model.athletes
+                    [ Element.table [ alignTop, height fill ]
+                        { data = model.athletes
                         , columns =
                             [ { header = el [ Font.bold ] (Element.text "Athletes")
                               , width = fill
                               , view =
                                     \athlete ->
-                                        el [] (Element.text athlete)
+                                        el [] (Element.text athlete.family_name)
                               }
                             ]
                         }
@@ -176,5 +194,34 @@ type alias Nation =
     { id_country : String, name : String, ioc : String }
 
 
+type alias Athlete =
+    { family_name : String, given_name : String, place : String }
+
+
 getAthletesFromAPI =
-    [ "Wicks, Lance", "Kano, Jigoro", "Koga, Toshihiko", "Adams, Sam" ]
+    Http.get
+        { url = "https://data.ijf.org/api/get_json?params[action]=country.competitors_list&params[id_country]=166"
+        , expect = Http.expectJson FetchAthletes athletesDecoder
+        }
+
+
+athleteDecoder =
+    Json.Decode.map3 Athlete
+        (Json.Decode.field "family_name" Json.Decode.string)
+        (Json.Decode.field "given_name" Json.Decode.string)
+        (Json.Decode.field "place" Json.Decode.string)
+
+
+athletesDecoder =
+    Json.Decode.map identity
+        (Json.Decode.list athleteDecoder)
+
+
+
+{--
+Info on nation: https://data.ijf.org/api/get_json?access_token=&params[action]=country.basic_info&params[__ust]=&params[id_country]=156
+Athletes from country: https://data.ijf.org/api/get_json?access_token=&params[action]=country.competitors_list&params[__ust]=&params[id_country]=156
+
+
+
+--}
