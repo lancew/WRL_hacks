@@ -1,4 +1,4 @@
-module Main exposing (main)
+module Main exposing (main, nationsDecoder, nationDecoder)
 
 import Browser as Browser
 import Element exposing (..)
@@ -71,8 +71,8 @@ update msg model =
         GetNations ->
             ( model, getNationsFromAPI )
 
-        GetAthletes nationID ->
-            ( model, getAthletesFromAPI )
+        GetAthletes nationIOC ->
+            ( model, getAthletesFromAPI nationIOC )
 
         FetchNations result ->
             case result of
@@ -144,8 +144,8 @@ view model =
                               , view =
                                     \nation ->
                                         Input.button []
-                                            { onPress = Just (GetAthletes nation.id_country)
-                                            , label = Element.text (nation.name ++ " - " ++ nation.id_country)
+                                            { onPress = Just (GetAthletes nation.ioc)
+                                            , label = Element.text (nation.name ++ " - " ++ nation.ioc)
                                             }
                               }
                             ]
@@ -195,26 +195,25 @@ type alias Nation =
 
 
 type alias Athlete =
-    { family_name : String, given_name : String, place : String }
+    { family_name : String, given_name : String }
 
 
-getAthletesFromAPI =
+getAthletesFromAPI nationIOC =
     Http.get
-        { url = "https://data.ijf.org/api/get_json?params[action]=country.competitors_list&params[id_country]=166"
+        { url = "https://www.ijf.org/internal_api/wrl?category=all_male&nation=" ++ String.toLower nationIOC
         , expect = Http.expectJson FetchAthletes athletesDecoder
         }
-
-
-athleteDecoder =
-    Json.Decode.map3 Athlete
-        (Json.Decode.field "family_name" Json.Decode.string)
-        (Json.Decode.field "given_name" Json.Decode.string)
-        (Json.Decode.field "place" Json.Decode.string)
 
 
 athletesDecoder =
     Json.Decode.map identity
         (Json.Decode.list athleteDecoder)
+
+
+athleteDecoder =
+    Json.Decode.map2 Athlete
+        (Json.Decode.field "family_name" Json.Decode.string)
+        (Json.Decode.field "given_name" Json.Decode.string)
 
 
 
