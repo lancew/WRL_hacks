@@ -85,7 +85,7 @@ update msg model =
         FetchAthletes result ->
             case result of
                 Ok athletes ->
-                    ( { model | athletes = [], error = "I dunno what I am doing" }, Cmd.none )
+                    ( { model | athletes = athletes }, Cmd.none )
 
                 Err theError ->
                     case theError of
@@ -159,7 +159,7 @@ view model =
                               , width = fill
                               , view =
                                     \athlete ->
-                                        el [] (Element.text athlete.family_name)
+                                        el [] (Element.text (athlete.family_name ++ " " ++ athlete.given_name))
                               }
                             ]
                         }
@@ -214,5 +214,3 @@ athleteDecoder =
     Json.Decode.map2 Athlete
         (Json.Decode.field "family_name" Json.Decode.string)
         (Json.Decode.field "given_name" Json.Decode.string)
-
-
