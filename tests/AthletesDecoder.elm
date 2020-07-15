@@ -7,31 +7,10 @@ import Main exposing (athleteDecoder, athletesDecoder)
 import Test exposing (..)
 
 
-type alias Athlete =
-    { family_name : String
-    , given_name : String
-    , place : String
-    }
-
-
-
-
 suite : Test
 suite =
     describe "Our JSON Parser for athlete"
-        [ test "decode an athlete" <|
-            \_ ->
-                let
-                    result =
-                        D.decodeString athleteDecoder athleteJson
-                in
-                case result of
-                    Ok record ->
-                        Expect.equal record.given_name "Justine"
-
-                    Err err ->
-                        Expect.equal "a" "b"
-            , test "decode a list of athletes" <|
+        [ test "decode a list of athletes check first athlete" <|
             \_ ->
                 let
                     result =
@@ -45,7 +24,7 @@ suite =
                         in
                         case ath of
                             Just athlete ->
-                                Expect.equal athlete.given_name "Justine"
+                                Expect.equal athlete { given_name = "Justine", family_name = "BISHOP", place = 68, place_prev = 69 }
 
                             Nothing ->
                                 Expect.equal "a" "b"
@@ -53,6 +32,7 @@ suite =
                     Err err ->
                         Expect.equal "Failure" "Decoding"
         ]
+
 
 athleteJson =
     """
@@ -170,7 +150,9 @@ athleteJson =
     }
 """
 
-athletesJson = """
+
+athletesJson =
+    """
 {
   "feed": [
     {

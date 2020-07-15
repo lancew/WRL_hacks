@@ -159,7 +159,7 @@ view model =
                               , width = fill
                               , view =
                                     \athlete ->
-                                        el [] (Element.text (athlete.family_name ++ " " ++ athlete.given_name))
+                                        el [] (Element.text (athlete.family_name ++ ", " ++ athlete.given_name ++ " -  Position: " ++ (String.fromInt athlete.place) ++ " (Previous position: " ++ (String.fromInt athlete.place_prev) ++ ")"))
                               }
                             ]
                         }
@@ -195,12 +195,12 @@ type alias Nation =
 
 
 type alias Athlete =
-    { family_name : String, given_name : String }
+    { family_name : String, given_name : String, place : Int, place_prev : Int }
 
 
 getAthletesFromAPI nationIOC =
     Http.get
-        { url = "https://www.ijf.org/internal_api/wrl?category=all_male&nation=" ++ String.toLower nationIOC
+        { url = "https://www.ijf.org/internal_api/wrl?category=all&nation=" ++ String.toLower nationIOC
         , expect = Http.expectJson FetchAthletes athletesDecoder
         }
 
@@ -211,6 +211,8 @@ athletesDecoder =
 
 
 athleteDecoder =
-    Json.Decode.map2 Athlete
+    Json.Decode.map4 Athlete
         (Json.Decode.field "family_name" Json.Decode.string)
         (Json.Decode.field "given_name" Json.Decode.string)
+        (Json.Decode.field "place" Json.Decode.int)
+        (Json.Decode.field "place_prev" Json.Decode.int)
