@@ -1,4 +1,4 @@
-module Main exposing (main, nationsDecoder, nationDecoder)
+module Main exposing (athleteDecoder, athletesDecoder, main, nationDecoder, nationsDecoder)
 
 import Browser as Browser
 import Element exposing (..)
@@ -207,7 +207,7 @@ getAthletesFromAPI nationIOC =
 
 athletesDecoder =
     Json.Decode.map identity
-        (Json.Decode.list athleteDecoder)
+        (Json.Decode.field "feed" (Json.Decode.list athleteDecoder))
 
 
 athleteDecoder =
@@ -216,11 +216,3 @@ athleteDecoder =
         (Json.Decode.field "given_name" Json.Decode.string)
 
 
-
-{--
-Info on nation: https://data.ijf.org/api/get_json?access_token=&params[action]=country.basic_info&params[__ust]=&params[id_country]=156
-Athletes from country: https://data.ijf.org/api/get_json?access_token=&params[action]=country.competitors_list&params[__ust]=&params[id_country]=156
-
-
-
---}

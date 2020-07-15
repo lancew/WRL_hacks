@@ -1,11 +1,10 @@
-module JsonParsing exposing (..)
+module NationsDecoder exposing (..)
 
 import Array
 import Expect exposing (Expectation)
 import Json.Decode as D
+import Main exposing (nationDecoder, nationsDecoder)
 import Test exposing (..)
-
-import Main exposing (nationsDecoder, nationDecoder)
 
 
 type alias Country =
@@ -19,8 +18,6 @@ countryJson =
     """
 {"id_country":"194","name":"Afghanistan","ioc":"AFG"}
 """
-
-
 
 
 suite : Test
@@ -50,9 +47,12 @@ suite =
                             cty =
                                 Array.get 0 <| Array.fromList record
                         in
-                            case cty of
-                               Just country-> (Expect.equal country.ioc "AFG")
-                               Nothing -> Expect.equal "a" "b"
+                        case cty of
+                            Just country ->
+                                Expect.equal country.ioc "AFG"
+
+                            Nothing ->
+                                Expect.equal "a" "b"
 
                     Err err ->
                         Expect.equal "a" "b"
