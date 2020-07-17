@@ -37,6 +37,21 @@ type alias Model =
     }
 
 
+type alias Nation =
+    { id_country : String
+    , name : String
+    , ioc : String
+    }
+
+
+type alias Athlete =
+    { family_name : String
+    , given_name : String
+    , place : Int
+    , place_prev : Int
+    }
+
+
 init : () -> ( Model, Cmd Msg )
 init _ =
     ( { nations = []
@@ -65,11 +80,6 @@ type Msg
     | FetchNations (Result Http.Error (List Nation))
     | FetchAthletes (Result Http.Error (List Athlete))
     | NoOp
-
-
-resetViewport : Cmd Msg
-resetViewport =
-    Task.perform (\_ -> NoOp) (Dom.setViewport 0 0)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -185,41 +195,21 @@ view model =
             ]
 
 
+
+-- HELPERS
+
+
+resetViewport : Cmd Msg
+resetViewport =
+    Task.perform (\_ -> NoOp) (Dom.setViewport 0 0)
+
+
 getNationsFromAPI : Cmd Msg
 getNationsFromAPI =
     Http.get
         { url = "https://data.judobase.org/api/get_json?params[action]=country.get_list"
         , expect = Http.expectJson FetchNations nationsDecoder
         }
-
-
-nationDecoder : Json.Decode.Decoder Nation
-nationDecoder =
-    Json.Decode.map3 Nation
-        (Json.Decode.field "id_country" Json.Decode.string)
-        (Json.Decode.field "name" Json.Decode.string)
-        (Json.Decode.field "ioc" Json.Decode.string)
-
-
-nationsDecoder : Json.Decode.Decoder (List Nation)
-nationsDecoder =
-    Json.Decode.map identity
-        (Json.Decode.list nationDecoder)
-
-
-type alias Nation =
-    { id_country : String
-    , name : String
-    , ioc : String
-    }
-
-
-type alias Athlete =
-    { family_name : String
-    , given_name : String
-    , place : Int
-    , place_prev : Int
-    }
 
 
 getAthletesFromAPI : String -> Cmd Msg
@@ -229,6 +219,20 @@ getAthletesFromAPI nationIOC =
         , expect = Http.expectJson FetchAthletes athletesDecoder
         }
 
+
+
+
+nationsDecoder : Json.Decode.Decoder (List Nation)
+nationsDecoder =
+    Json.Decode.map identity
+        (Json.Decode.list nationDecoder)
+
+nationDecoder : Json.Decode.Decoder Nation
+nationDecoder =
+    Json.Decode.map3 Nation
+        (Json.Decode.field "id_country" Json.Decode.string)
+        (Json.Decode.field "name" Json.Decode.string)
+        (Json.Decode.field "ioc" Json.Decode.string)
 
 athletesDecoder : Json.Decode.Decoder (List Athlete)
 athletesDecoder =
