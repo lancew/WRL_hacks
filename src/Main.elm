@@ -1,6 +1,7 @@
 module Main exposing (athleteDecoder, athletesDecoder, main, nationDecoder, nationsDecoder)
 
 import Browser as Browser
+import Browser.Dom as Dom
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
@@ -10,6 +11,7 @@ import Html exposing (Html, button, div)
 import Html.Events exposing (onClick)
 import Http
 import Json.Decode exposing (errorToString)
+import Task
 
 
 
@@ -64,6 +66,12 @@ type Msg
     | FetchNations (Result Http.Error (List Nation))
     | FetchAthletes (Result Http.Error (List Athlete))
     | Test String
+    | NoOp
+
+
+resetViewport : Cmd Msg
+resetViewport =
+    Task.perform (\_ -> NoOp) (Dom.setViewport 0 0)
 
 
 update msg model =
@@ -85,7 +93,7 @@ update msg model =
         FetchAthletes result ->
             case result of
                 Ok athletes ->
-                    ( { model | athletes = athletes }, Cmd.none )
+                    ( { model | athletes = athletes }, resetViewport )
 
                 Err theError ->
                     case theError of
@@ -106,6 +114,9 @@ update msg model =
 
         Test data ->
             ( { model | error = data }, Cmd.none )
+
+        NoOp ->
+            ( model, Cmd.none )
 
 
 
@@ -159,7 +170,17 @@ view model =
                               , width = fill
                               , view =
                                     \athlete ->
-                                        el [] (Element.text (athlete.family_name ++ ", " ++ athlete.given_name ++ " -  Position: " ++ (String.fromInt athlete.place) ++ " (Previous position: " ++ (String.fromInt athlete.place_prev) ++ ")"))
+                                        el [] (Element.text (athlete.family_name ++ ", " ++ athlete.given_name))
+                              }
+                            , { header = el [ Font.bold ] (Element.text "Position")
+                              , width = fill
+                              , view =
+                                    \athlete ->
+                                        let
+                                            change =
+                                                athlete.place_prev - athlete.place
+                                        in
+                                        el [] (Element.text ("Position: " ++ String.fromInt athlete.place ++ " (Previous position: " ++ String.fromInt athlete.place_prev ++ ") " ++ String.fromInt change))
                               }
                             ]
                         }
