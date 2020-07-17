@@ -2,15 +2,13 @@ module Main exposing (athleteDecoder, athletesDecoder, main, nationDecoder, nati
 
 import Browser as Browser
 import Browser.Dom as Dom
-import Element exposing (..)
-import Element.Background as Background
+import Element exposing (alignBottom, alignTop, centerX, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
-import Html exposing (Html, button, div)
-import Html.Events exposing (onClick)
+import Html exposing (Html, button)
 import Http
-import Json.Decode exposing (errorToString)
+import Json.Decode
 import Task
 
 
@@ -39,6 +37,7 @@ type alias Model =
     }
 
 
+init : () -> ( Model, Cmd Msg )
 init _ =
     ( { nations = []
       , athletes = []
@@ -52,7 +51,8 @@ init _ =
 -- SUBSCRIPTIONS
 
 
-subscriptions model =
+subscriptions : Model -> Sub Msg
+subscriptions _ =
     Sub.none
 
 
@@ -61,11 +61,9 @@ subscriptions model =
 
 
 type Msg
-    = GetNations
-    | GetAthletes String
+    = GetAthletes String
     | FetchNations (Result Http.Error (List Nation))
     | FetchAthletes (Result Http.Error (List Athlete))
-    | Test String
     | NoOp
 
 
@@ -74,18 +72,16 @@ resetViewport =
     Task.perform (\_ -> NoOp) (Dom.setViewport 0 0)
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        GetNations ->
-            ( model, getNationsFromAPI )
-
         GetAthletes nationIOC ->
             ( model, getAthletesFromAPI nationIOC )
 
         FetchNations result ->
             case result of
                 Ok nations ->
-                    ( { model | nations = nations }, Cmd.none )
+                    ( { model | nations = nations, error = "" }, Cmd.none )
 
                 Err _ ->
                     ( { model | nations = [], error = "--- Error: Problem loading nations from IJF ---" }, Cmd.none )
@@ -93,7 +89,7 @@ update msg model =
         FetchAthletes result ->
             case result of
                 Ok athletes ->
-                    ( { model | athletes = athletes }, resetViewport )
+                    ( { model | athletes = athletes, error = "" }, resetViewport )
 
                 Err theError ->
                     case theError of
@@ -111,9 +107,6 @@ update msg model =
 
                         Http.BadBody _ ->
                             ( { model | athletes = [], error = "--- Error: Problem loading athletes from IJF. Bad Body ---" }, Cmd.none )
-
-        Test data ->
-            ( { model | error = data }, Cmd.none )
 
         NoOp ->
             ( model, Cmd.none )
@@ -192,6 +185,7 @@ view model =
             ]
 
 
+getNationsFromAPI : Cmd Msg
 getNationsFromAPI =
     Http.get
         { url = "https://data.judobase.org/api/get_json?params[action]=country.get_list"
@@ -199,6 +193,7 @@ getNationsFromAPI =
         }
 
 
+nationDecoder : Json.Decode.Decoder Nation
 nationDecoder =
     Json.Decode.map3 Nation
         (Json.Decode.field "id_country" Json.Decode.string)
@@ -206,19 +201,28 @@ nationDecoder =
         (Json.Decode.field "ioc" Json.Decode.string)
 
 
+nationsDecoder : Json.Decode.Decoder (List Nation)
 nationsDecoder =
     Json.Decode.map identity
         (Json.Decode.list nationDecoder)
 
 
 type alias Nation =
-    { id_country : String, name : String, ioc : String }
+    { id_country : String
+    , name : String
+    , ioc : String
+    }
 
 
 type alias Athlete =
-    { family_name : String, given_name : String, place : Int, place_prev : Int }
+    { family_name : String
+    , given_name : String
+    , place : Int
+    , place_prev : Int
+    }
 
 
+getAthletesFromAPI : String -> Cmd Msg
 getAthletesFromAPI nationIOC =
     Http.get
         { url = "https://www.ijf.org/internal_api/wrl?category=all&nation=" ++ String.toLower nationIOC
@@ -226,11 +230,13 @@ getAthletesFromAPI nationIOC =
         }
 
 
+athletesDecoder : Json.Decode.Decoder (List Athlete)
 athletesDecoder =
     Json.Decode.map identity
         (Json.Decode.field "feed" (Json.Decode.list athleteDecoder))
 
 
+athleteDecoder : Json.Decode.Decoder Athlete
 athleteDecoder =
     Json.Decode.map4 Athlete
         (Json.Decode.field "family_name" Json.Decode.string)
