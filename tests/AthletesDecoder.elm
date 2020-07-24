@@ -24,7 +24,7 @@ suite =
                         in
                         case ath of
                             Just athlete ->
-                                Expect.equal athlete { given_name = "Justine", family_name = "BISHOP", place = 68, place_prev = 69 }
+                                Expect.equal athlete { given_name = "Justine", family_name = "BISHOP", place = 68, place_prev = 69, gender = "female" }
 
                             Nothing ->
                                 Expect.equal "a" "b"

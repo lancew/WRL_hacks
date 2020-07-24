@@ -1,12 +1,13 @@
-module Main exposing (athleteDecoder, athletesDecoder, main, nationDecoder, nationsDecoder)
+module Main exposing (athleteDecoder, athletesDecoder, main, nationDecoder, nationsDecoder, topMale)
 
 import Browser as Browser
 import Browser.Dom as Dom
-import Element exposing (alignBottom, alignTop, centerX, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
+import Element exposing (alignBottom, alignLeft, alignRight, alignTop, centerX, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Html exposing (Html, button)
+import Html.Attributes exposing (list)
 import Http
 import Json.Decode
 import Task
@@ -32,6 +33,7 @@ main =
 
 type alias Model =
     { nations : List Nation
+    , nation : String
     , athletes : List Athlete
     , error : String
     }
@@ -46,6 +48,7 @@ type alias Nation =
 
 type alias Athlete =
     { family_name : String
+    , gender : String
     , given_name : String
     , place : Int
     , place_prev : Int
@@ -57,6 +60,7 @@ init _ =
     ( { nations = []
       , athletes = []
       , error = ""
+      , nation = ""
       }
     , getNationsFromAPI
     )
@@ -86,7 +90,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GetAthletes nationIOC ->
-            ( model, getAthletesFromAPI nationIOC )
+            ( { model | nation = nationIOC }, getAthletesFromAPI nationIOC )
 
         FetchNations result ->
             case result of
@@ -166,27 +170,41 @@ view model =
                         }
                     ]
                 , column [ padding 5, height fill, width (fillPortion 4), Border.width 1, Border.rounded 5 ]
-                    [ Element.table [ alignTop, height fill ]
-                        { data = model.athletes
-                        , columns =
-                            [ { header = el [ Font.bold ] (Element.text "Athletes")
-                              , width = fill
-                              , view =
-                                    \athlete ->
-                                        el [] (Element.text (athlete.family_name ++ ", " ++ athlete.given_name))
-                              }
-                            , { header = el [ Font.bold ] (Element.text "Position")
-                              , width = fill
-                              , view =
-                                    \athlete ->
-                                        let
-                                            change =
-                                                athlete.place_prev - athlete.place
-                                        in
-                                        el [] (Element.text ("Position: " ++ String.fromInt athlete.place ++ " (Previous position: " ++ String.fromInt athlete.place_prev ++ ") " ++ String.fromInt change))
-                              }
-                            ]
-                        }
+                    [ row [ width fill, padding 10 ]
+                        [ el [ centerX ] (text model.nation)
+                        ]
+                    , row [ width fill, padding 10 ]
+                        [ el [ alignLeft ] (text ("Top Male: " ++ topMale model.athletes))
+                        , el [ centerX ] (text ("Total Athletes: " ++ String.fromInt (List.length model.athletes)))
+                        , el [ alignRight ] (text "Top Female: Bar")
+                        ]
+                    , row [ width fill, padding 10 ]
+                        [ el [ alignLeft ] (text "Top Climber: Foo")
+                        , el [ alignRight ] (text "Top Faller: Bar")
+                        ]
+                    , row [ padding 10 ]
+                        [ Element.table [ alignTop, height fill ]
+                            { data = model.athletes
+                            , columns =
+                                [ { header = el [ Font.bold ] (Element.text "Athletes")
+                                  , width = fill
+                                  , view =
+                                        \athlete ->
+                                            el [] (Element.text (athlete.family_name ++ ", " ++ athlete.given_name))
+                                  }
+                                , { header = el [ Font.bold ] (Element.text "Position")
+                                  , width = fill
+                                  , view =
+                                        \athlete ->
+                                            let
+                                                change =
+                                                    athlete.place_prev - athlete.place
+                                            in
+                                            el [] (Element.text ("Position: " ++ String.fromInt athlete.place ++ " (Previous position: " ++ String.fromInt athlete.place_prev ++ ") " ++ String.fromInt change))
+                                  }
+                                ]
+                            }
+                        ]
                     ]
                 ]
             , row [ alignBottom, width fill, padding 10 ]
@@ -220,12 +238,11 @@ getAthletesFromAPI nationIOC =
         }
 
 
-
-
 nationsDecoder : Json.Decode.Decoder (List Nation)
 nationsDecoder =
     Json.Decode.map identity
         (Json.Decode.list nationDecoder)
+
 
 nationDecoder : Json.Decode.Decoder Nation
 nationDecoder =
@@ -233,6 +250,7 @@ nationDecoder =
         (Json.Decode.field "id_country" Json.Decode.string)
         (Json.Decode.field "name" Json.Decode.string)
         (Json.Decode.field "ioc" Json.Decode.string)
+
 
 athletesDecoder : Json.Decode.Decoder (List Athlete)
 athletesDecoder =
@@ -242,8 +260,32 @@ athletesDecoder =
 
 athleteDecoder : Json.Decode.Decoder Athlete
 athleteDecoder =
-    Json.Decode.map4 Athlete
+    Json.Decode.map5 Athlete
         (Json.Decode.field "family_name" Json.Decode.string)
+        (Json.Decode.field "gender" Json.Decode.string)
         (Json.Decode.field "given_name" Json.Decode.string)
         (Json.Decode.field "place" Json.Decode.int)
         (Json.Decode.field "place_prev" Json.Decode.int)
+
+
+topMale : List Athlete -> String
+topMale athletes =
+    List.filter
+        (\ath ->
+            if ath.gender == "male" then
+                True
+
+            else
+                False
+        )
+        athletes
+        |> List.sortBy .place
+        |> List.head
+        |> (\x ->
+                case x of
+                    Just a ->
+                        a.family_name ++ ", " ++ a.given_name
+
+                    _ ->
+                        ""
+           )
