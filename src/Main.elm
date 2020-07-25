@@ -1,4 +1,4 @@
-module Main exposing (athleteDecoder, athletesDecoder, main, nationDecoder, nationsDecoder, topMale)
+module Main exposing (Gender, athleteDecoder, athletesDecoder, main, nationDecoder, nationsDecoder, topAthlete)
 
 import Browser as Browser
 import Browser.Dom as Dom
@@ -37,6 +37,15 @@ type alias Model =
     , athletes : List Athlete
     , error : String
     }
+
+
+
+-- OTHER TYPES
+
+
+type Gender
+    = Male
+    | Female
 
 
 type alias Nation =
@@ -174,9 +183,9 @@ view model =
                         [ el [ centerX ] (text model.nation)
                         ]
                     , row [ width fill, padding 10 ]
-                        [ el [ alignLeft ] (text ("Top Male: " ++ topMale model.athletes))
+                        [ el [ alignLeft ] (text ("Top Male: " ++ topAthlete Male model.athletes))
                         , el [ centerX ] (text ("Total Athletes: " ++ String.fromInt (List.length model.athletes)))
-                        , el [ alignRight ] (text "Top Female: Bar")
+                        , el [ alignRight ] (text ("Top Female: " ++ topAthlete Female model.athletes))
                         ]
                     , row [ width fill, padding 10 ]
                         [ el [ alignLeft ] (text "Top Climber: Foo")
@@ -268,11 +277,20 @@ athleteDecoder =
         (Json.Decode.field "place_prev" Json.Decode.int)
 
 
-topMale : List Athlete -> String
-topMale athletes =
+topAthlete : Gender -> List Athlete -> String
+topAthlete gender athletes =
+    let
+        filterOn =
+            case gender of
+                Male ->
+                    "male"
+
+                Female ->
+                    "female"
+    in
     List.filter
         (\ath ->
-            if ath.gender == "male" then
+            if ath.gender == filterOn then
                 True
 
             else
