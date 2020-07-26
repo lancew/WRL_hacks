@@ -61,6 +61,7 @@ type alias Athlete =
     , given_name : String
     , place : Int
     , place_prev : Int
+    , sum_points : Int
     }
 
 
@@ -199,7 +200,13 @@ view model =
                                   , width = fill
                                   , view =
                                         \athlete ->
-                                            el [] (Element.text (athlete.family_name ++ ", " ++ athlete.given_name))
+                                            el []
+                                                (Element.text
+                                                    (athlete.family_name
+                                                        ++ ", "
+                                                        ++ athlete.given_name
+                                                    )
+                                                )
                                   }
                                 , { header = el [ Font.bold ] (Element.text "Position")
                                   , width = fill
@@ -208,8 +215,33 @@ view model =
                                             let
                                                 change =
                                                     athlete.place_prev - athlete.place
+
+                                                arrow =
+                                                    if change > 0 then
+                                                        " ⭧ "
+
+                                                    else if change == 0 then
+                                                        " ⭢"
+
+                                                    else
+                                                        " ⭨ "
                                             in
-                                            el [] (Element.text ("Position: " ++ String.fromInt athlete.place ++ " (Previous position: " ++ String.fromInt athlete.place_prev ++ ") " ++ String.fromInt change))
+                                            el []
+                                                (Element.text
+                                                    ("#"
+                                                        ++ String.fromInt athlete.place
+                                                        ++ " ("
+                                                        ++ String.fromInt athlete.sum_points
+                                                        ++ " points) "
+                                                        ++ arrow
+                                                        ++ (if change /= 0 then
+                                                                String.fromInt change
+
+                                                            else
+                                                                ""
+                                                           )
+                                                    )
+                                                )
                                   }
                                 ]
                             }
@@ -269,12 +301,13 @@ athletesDecoder =
 
 athleteDecoder : Json.Decode.Decoder Athlete
 athleteDecoder =
-    Json.Decode.map5 Athlete
+    Json.Decode.map6 Athlete
         (Json.Decode.field "family_name" Json.Decode.string)
         (Json.Decode.field "gender" Json.Decode.string)
         (Json.Decode.field "given_name" Json.Decode.string)
         (Json.Decode.field "place" Json.Decode.int)
         (Json.Decode.field "place_prev" Json.Decode.int)
+        (Json.Decode.field "sum_points" Json.Decode.int)
 
 
 topAthlete : Gender -> List Athlete -> String
@@ -317,11 +350,16 @@ topClimber athletes =
         |> (\x ->
                 case x of
                     Just a ->
-                        a.family_name ++ ", " ++ a.given_name ++ ": " ++ String.fromInt (a.place_prev - a.place)
+                        a.family_name
+                            ++ ", "
+                            ++ a.given_name
+                            ++ ": "
+                            ++ String.fromInt (a.place_prev - a.place)
 
                     _ ->
                         ""
            )
+
 
 topFaller : List Athlete -> String
 topFaller athletes =
@@ -331,7 +369,11 @@ topFaller athletes =
         |> (\x ->
                 case x of
                     Just a ->
-                        a.family_name ++ ", " ++ a.given_name ++ ": " ++ String.fromInt (a.place_prev - a.place)
+                        a.family_name
+                            ++ ", "
+                            ++ a.given_name
+                            ++ ": "
+                            ++ String.fromInt (a.place_prev - a.place)
 
                     _ ->
                         ""

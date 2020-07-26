@@ -19,18 +19,21 @@ suite =
                           , place = 68
                           , place_prev = 69
                           , gender = "male"
+                          , sum_points = 2000
                           }
                         , { given_name = "James"
                           , family_name = "NOBODY"
                           , place = 1
                           , place_prev = 100
                           , gender = "male"
+                          , sum_points = 2000
                           }
                         , { given_name = "Jane"
                           , family_name = "DOE"
                           , place = 50
                           , place_prev = 69
                           , gender = "female"
+                          , sum_points = 2000
                           }
                         ]
                 in
