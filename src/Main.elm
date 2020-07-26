@@ -2,6 +2,7 @@ module Main exposing (Gender, athleteDecoder, athletesDecoder, main, nationDecod
 
 import Browser as Browser
 import Browser.Dom as Dom
+import Countries
 import Element exposing (alignBottom, alignLeft, alignRight, alignTop, centerX, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
 import Element.Border as Border
 import Element.Font as Font
@@ -173,7 +174,23 @@ view model =
                                     \nation ->
                                         Input.button []
                                             { onPress = Just (GetAthletes nation.ioc)
-                                            , label = Element.text (nation.name ++ " - " ++ nation.ioc)
+                                            , label =
+                                                let
+                                                    flag =
+                                                        case Countries.fromCode nation.ioc of
+                                                            Just nat ->
+                                                                nat.flag
+
+                                                            Nothing ->
+                                                                ""
+                                                in
+                                                Element.text
+                                                    (flag
+                                                        ++ " "
+                                                        ++ nation.name
+                                                        ++ " - "
+                                                        ++ nation.ioc
+                                                    )
                                             }
                               }
                             ]
