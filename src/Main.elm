@@ -4,6 +4,7 @@ import Browser as Browser
 import Browser.Dom as Dom
 import Countries
 import Element exposing (alignBottom, alignLeft, alignRight, alignTop, centerX, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
+import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
@@ -210,14 +211,22 @@ view model =
                         , el [ alignRight ] (text ("Top Faller: " ++ topFaller model.athletes))
                         ]
                     , row [ padding 10 ]
-                        [ Element.table [ alignTop, height fill ]
+                        [ Element.indexedTable [ alignTop, height fill ]
                             { data = model.athletes
                             , columns =
                                 [ { header = el [ Font.bold ] (Element.text "Athletes")
                                   , width = fill
                                   , view =
-                                        \athlete ->
-                                            el []
+                                        \i athlete ->
+                                            el
+                                                [ Element.spacing 5
+                                                , Element.padding 2
+                                                , if modBy 2 i == 0 then
+                                                    Background.color (Element.rgb255 221 221 221)
+
+                                                  else
+                                                    Background.color (Element.rgb255 255 255 255)
+                                                ]
                                                 (Element.text
                                                     (athlete.family_name
                                                         ++ ", "
@@ -228,7 +237,7 @@ view model =
                                 , { header = el [ Font.bold ] (Element.text "Position")
                                   , width = fill
                                   , view =
-                                        \athlete ->
+                                        \i athlete ->
                                             let
                                                 change =
                                                     athlete.place_prev - athlete.place
@@ -243,7 +252,15 @@ view model =
                                                     else
                                                         " ⭨ "
                                             in
-                                            el []
+                                            el
+                                                [ Element.spacing 5
+                                                , Element.padding 2
+                                                , if modBy 2 i == 0 then
+                                                    Background.color (Element.rgb255 221 221 221)
+
+                                                  else
+                                                    Background.color (Element.rgb255 255 255 255)
+                                                ]
                                                 (Element.text
                                                     ("#"
                                                         ++ String.fromInt athlete.place
