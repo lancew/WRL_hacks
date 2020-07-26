@@ -1,5 +1,5 @@
 module AthletesHelpers exposing (..)
-
+{--
 import Array
 import Expect exposing (Expectation)
 import Json.Decode as D
@@ -61,3 +61,4 @@ suite =
                 in
                 Expect.equal (Main.topAthlete Female athletes) "DOE, Jane"
         ]
+--}

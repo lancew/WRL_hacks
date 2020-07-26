@@ -1,4 +1,4 @@
-module Main exposing (Gender, athleteDecoder, athletesDecoder, main, nationDecoder, nationsDecoder, topAthlete)
+module Main exposing (Gender, athleteDecoder, athletesDecoder, main, nationDecoder, nationsDecoder, topAthlete, topClimber, topFaller)
 
 import Browser as Browser
 import Browser.Dom as Dom
@@ -188,8 +188,8 @@ view model =
                         , el [ alignRight ] (text ("Top Female: " ++ topAthlete Female model.athletes))
                         ]
                     , row [ width fill, padding 10 ]
-                        [ el [ alignLeft ] (text "Top Climber: Foo")
-                        , el [ alignRight ] (text "Top Faller: Bar")
+                        [ el [ alignLeft ] (text ("Top Climber: " ++ topClimber model.athletes))
+                        , el [ alignRight ] (text ("Top Faller: " ++ topFaller model.athletes))
                         ]
                     , row [ padding 10 ]
                         [ Element.table [ alignTop, height fill ]
@@ -303,6 +303,35 @@ topAthlete gender athletes =
                 case x of
                     Just a ->
                         a.family_name ++ ", " ++ a.given_name
+
+                    _ ->
+                        ""
+           )
+
+
+topClimber : List Athlete -> String
+topClimber athletes =
+    athletes
+        |> List.sortBy (\x -> x.place - x.place_prev)
+        |> List.head
+        |> (\x ->
+                case x of
+                    Just a ->
+                        a.family_name ++ ", " ++ a.given_name ++ ": " ++ String.fromInt (a.place_prev - a.place)
+
+                    _ ->
+                        ""
+           )
+
+topFaller : List Athlete -> String
+topFaller athletes =
+    athletes
+        |> List.sortBy (\x -> x.place_prev - x.place)
+        |> List.head
+        |> (\x ->
+                case x of
+                    Just a ->
+                        a.family_name ++ ", " ++ a.given_name ++ ": " ++ String.fromInt (a.place_prev - a.place)
 
                     _ ->
                         ""
