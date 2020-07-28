@@ -64,6 +64,7 @@ type alias Athlete =
     , place : Int
     , place_prev : Int
     , sum_points : Int
+    , weight_name : String
     }
 
 
@@ -234,6 +235,24 @@ view model =
                                                     )
                                                 )
                                   }
+                                , { header = el [ Font.bold ] (Element.text "Weight Category")
+                                  , width = fill
+                                  , view =
+                                        \i athlete ->
+                                            el
+                                                [ Element.spacing 5
+                                                , Element.padding 2
+                                                , Font.center
+                                                , if modBy 2 i == 0 then
+                                                    Background.color (Element.rgb255 221 221 221)
+
+                                                  else
+                                                    Background.color (Element.rgb255 255 255 255)
+                                                ]
+                                                (Element.text
+                                                    athlete.weight_name
+                                                )
+                                  }
                                 , { header = el [ Font.bold ] (Element.text "Position")
                                   , width = fill
                                   , view =
@@ -335,13 +354,14 @@ athletesDecoder =
 
 athleteDecoder : Json.Decode.Decoder Athlete
 athleteDecoder =
-    Json.Decode.map6 Athlete
+    Json.Decode.map7 Athlete
         (Json.Decode.field "family_name" Json.Decode.string)
         (Json.Decode.field "gender" Json.Decode.string)
         (Json.Decode.field "given_name" Json.Decode.string)
         (Json.Decode.field "place" Json.Decode.int)
         (Json.Decode.field "place_prev" Json.Decode.int)
         (Json.Decode.field "sum_points" Json.Decode.int)
+        (Json.Decode.field "weight_name" Json.Decode.string)
 
 
 topAthlete : Gender -> List Athlete -> String

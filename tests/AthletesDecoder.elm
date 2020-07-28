@@ -31,6 +31,7 @@ suite =
                                     , place_prev = 69
                                     , gender = "female"
                                     , sum_points = 394
+                                    , weight_name = "-57"
                                     }
 
                             Nothing ->

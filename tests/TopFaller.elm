@@ -20,6 +20,7 @@ suite =
                           , place_prev = 69
                           , gender = "male"
                           , sum_points = 2000
+                          , weight_name = "foo"
                           }
                         , { given_name = "James"
                           , family_name = "NOBODY"
@@ -27,6 +28,7 @@ suite =
                           , place_prev = 40
                           , gender = "male"
                           , sum_points = 2000
+                          , weight_name = "foo"
                           }
                         , { given_name = "Jane"
                           , family_name = "DOE"
@@ -34,6 +36,7 @@ suite =
                           , place_prev = 69
                           , gender = "female"
                           , sum_points = 2000
+                          , weight_name = "foo"
                           }
                         ]
                 in
