@@ -201,7 +201,14 @@ view model =
                     ]
                 , column [ padding 5, height fill, width (fillPortion 4), Border.width 1, Border.rounded 5, Background.color (Element.rgb255 255 255 255) ]
                     [ row [ width fill, padding 10 ]
-                        [ el [ centerX ] (text model.nation)
+                        [ el [ centerX ] (text (
+                                                    case Countries.fromCode model.nation of
+                                                            Just nat ->
+                                                                nat.name
+
+                                                            Nothing ->
+                                                                model.nation
+                                                ))
                         ]
                     , row [ width fill, padding 10 ]
                         [ el [ alignLeft ] (text ("Top Male: " ++ topAthlete Male model.athletes))
