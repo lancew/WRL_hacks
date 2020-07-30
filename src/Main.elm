@@ -145,9 +145,9 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    Element.layout [  height fill, width fill, Background.gradient { angle = 3.14, steps = [ (Element.rgb255 67 69 122),(Element.rgb255 54 51 93) ] }  ] <|
-        column [ width fill, height fill]
-            [ row [ width fill, padding 10, Background.gradient { angle = 0.0, steps = [ (Element.rgb255 67 69 122),(Element.rgb255 54 51 93) ] } ]
+    Element.layout [ height fill, width fill, Background.gradient { angle = 3.14, steps = [ Element.rgb255 67 69 122, Element.rgb255 54 51 93 ] } ] <|
+        column [ width fill, height fill ]
+            [ row [ width fill, padding 10 ]
                 [ el
                     [ width fill
                     , alignTop
@@ -158,14 +158,14 @@ view model =
                     , Font.family
                         [ Font.serif
                         ]
-                    , Font.color     (Element.rgb255 255 255 255)
+                    , Font.color (Element.rgb255 255 255 255)
                     ]
                     (text "International Judo Federation World Ranking List")
                 ]
             , row [ width fill ]
                 [ el [ width fill, Font.center, Font.color (Element.rgb 1 0 0) ] (text model.error)
                 ]
-            , row [ padding 5, alignTop, height fill, width fill, spacing 5,Background.color (Element.rgb255 226 226 226)]
+            , row [ padding 5, alignTop, height fill, width fill, spacing 5, Background.color (Element.rgb255 226 226 226) ]
                 [ column [ padding 5, height fill, width (fillPortion 1), Border.width 1, Border.rounded 5, Background.color (Element.rgb255 255 255 255) ]
                     [ Element.table
                         [ alignTop, height fill, padding 5 ]
@@ -212,7 +212,7 @@ view model =
                         [ el [ alignLeft ] (text ("Top Climber: " ++ topClimber model.athletes))
                         , el [ alignRight ] (text ("Top Faller: " ++ topFaller model.athletes))
                         ]
-                    , row [ padding 10 ]
+                    , row [ padding 10, width fill ]
                         [ Element.indexedTable [ alignTop, height fill ]
                             { data = model.athletes
                             , columns =
@@ -236,7 +236,7 @@ view model =
                                                     )
                                                 )
                                   }
-                                , { header = el [ Font.bold ] (Element.text "Weight Category")
+                                , { header = el [ Font.bold, Font.center ] (Element.text "Weight Category")
                                   , width = fill
                                   , view =
                                         \i athlete ->
@@ -302,8 +302,25 @@ view model =
                         ]
                     ]
                 ]
-            , row [ alignBottom, width fill, padding 10 ]
-                [ el [ width fill, Font.center ] (text "www.judowrl.com")
+            , row [ alignBottom, width fill, padding 10, Background.gradient { angle = 3.14, steps = [ Element.rgb255 67 69 122, Element.rgb255 54 51 93 ] } ]
+                [ Element.link
+                    [ Font.center
+                    , alignLeft
+                    , Font.family
+                        [ Font.serif
+                        ]
+                    , Font.color (Element.rgb255 255 255 255)
+                    ]
+                    { label = Element.text "www.judowrl.com", url = "https://judowrl.com" }
+                , Element.link
+                    [ Font.center
+                    , alignRight
+                    , Font.family
+                        [ Font.serif
+                        ]
+                    , Font.color (Element.rgb255 255 255 255)
+                    ]
+                    { label = Element.text "lancew/WRL_hacks", url = "https://github.com/lancew/WRL_hacks" }
                 ]
             ]
 
