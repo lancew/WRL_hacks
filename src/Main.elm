@@ -166,7 +166,7 @@ view model =
                 [ el [ width fill, Font.center, Font.color (Element.rgb 1 0 0) ] (text model.error)
                 ]
             , row [ padding 5, alignTop, height fill, width fill, spacing 5,Background.color (Element.rgb255 226 226 226)]
-                [ column [ padding 5, height fill, width (fillPortion 1), Border.width 1, Border.rounded 5 ]
+                [ column [ padding 5, height fill, width (fillPortion 1), Border.width 1, Border.rounded 5, Background.color (Element.rgb255 255 255 255) ]
                     [ Element.table
                         [ alignTop, height fill, padding 5 ]
                         { data = model.nations
@@ -199,7 +199,7 @@ view model =
                             ]
                         }
                     ]
-                , column [ padding 5, height fill, width (fillPortion 4), Border.width 1, Border.rounded 5 ]
+                , column [ padding 5, height fill, width (fillPortion 4), Border.width 1, Border.rounded 5, Background.color (Element.rgb255 255 255 255) ]
                     [ row [ width fill, padding 10 ]
                         [ el [ centerX ] (text model.nation)
                         ]
