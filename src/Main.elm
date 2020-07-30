@@ -145,9 +145,9 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    Element.layout [ padding 5, height fill, width fill ] <|
-        column [ width fill, height fill ]
-            [ row [ width fill, padding 10 ]
+    Element.layout [  height fill, width fill, Background.gradient { angle = 3.14, steps = [ (Element.rgb255 67 69 122),(Element.rgb255 54 51 93) ] }  ] <|
+        column [ width fill, height fill]
+            [ row [ width fill, padding 10, Background.gradient { angle = 0.0, steps = [ (Element.rgb255 67 69 122),(Element.rgb255 54 51 93) ] } ]
                 [ el
                     [ width fill
                     , alignTop
@@ -158,13 +158,14 @@ view model =
                     , Font.family
                         [ Font.serif
                         ]
+                    , Font.color     (Element.rgb255 255 255 255)
                     ]
                     (text "International Judo Federation World Ranking List")
                 ]
             , row [ width fill ]
                 [ el [ width fill, Font.center, Font.color (Element.rgb 1 0 0) ] (text model.error)
                 ]
-            , row [ padding 5, alignTop, height fill, width fill, spacing 5 ]
+            , row [ padding 5, alignTop, height fill, width fill, spacing 5,Background.color (Element.rgb255 226 226 226)]
                 [ column [ padding 5, height fill, width (fillPortion 1), Border.width 1, Border.rounded 5 ]
                     [ Element.table
                         [ alignTop, height fill, padding 5 ]
