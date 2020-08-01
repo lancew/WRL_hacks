@@ -158,8 +158,15 @@ update msg model =
         NoOp ->
             ( model, Cmd.none )
 
-        ViewportResult viewport ->
-            ( { model | viewport = Just viewport }, Cmd.none )
+        ViewportResult viewP ->
+            let
+                classifiedDevice =
+                    Element.classifyDevice
+                        { width = round viewP.viewport.width
+                        , height = round viewP.viewport.height
+                        }
+            in            
+                ( { model | viewport = Just viewP, device = classifiedDevice }, Cmd.none )
 
 
 
@@ -168,18 +175,9 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    case model.viewport of
-        Just viewP ->
-            let
-                classifiedDevice =
-                    Element.classifyDevice
-                        { width = round viewP.viewport.x
-                        , height = round viewP.viewport.y
-                        }
-            in
-            case classifiedDevice.class of
+            case model.device.class of
                 Element.Phone ->
-                    case classifiedDevice.orientation of
+                    case model.device.orientation of
                         Element.Portrait ->
                             viewPhonePortrait model
 
@@ -192,8 +190,7 @@ view model =
                 _ ->
                     viewDesktop model
 
-        Nothing ->
-            viewDesktop model
+       
 
 
 viewDesktop : Model -> Html Msg
@@ -459,7 +456,7 @@ viewPhonePortrait model =
                             }
                         ]
                     ]
-                    , column [ height fill, width (fillPortion 4) ]
+                , column [ height fill, width (fillPortion 4) ]
                     [ Element.table
                         [ alignTop, height fill, padding 5 ]
                         { data = model.nations
@@ -490,9 +487,7 @@ viewPhonePortrait model =
                             ]
                         }
                     ]
-                
                 ]
-                
             ]
 
 
