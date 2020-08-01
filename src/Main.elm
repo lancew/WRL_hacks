@@ -222,7 +222,7 @@ viewDesktop model =
                                                                 nat.flag
 
                                                             Nothing ->
-                                                                ""
+                                                                "🥋"
                                                 in
                                                 Element.text
                                                     (flag
@@ -404,7 +404,7 @@ viewPhonePortrait model =
                                                                 nat.flag
 
                                                             Nothing ->
-                                                                ""
+                                                                "🥋"
                                                 in
                                                 Element.text
                                                     (flag
