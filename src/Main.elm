@@ -40,6 +40,7 @@ type alias Model =
     , athletes : List Athlete
     , error : String
     , device : Element.Device
+    , viewport : Maybe Dom.Viewport
     }
 
 
@@ -77,11 +78,10 @@ init _ =
       , error = ""
       , nation = ""
       , device =
-                
-                { class = Element.Desktop
-                , orientation = Element.Landscape
-                }
-                
+            { class = Element.Desktop
+            , orientation = Element.Landscape
+            }
+      , viewport = Nothing
       }
     , getNationsFromAPI
     )
@@ -106,6 +106,7 @@ type Msg
     | FetchAthletes (Result Http.Error (List Athlete))
     | SetScreenSize Int Int
     | NoOp
+    | ViewportResult Dom.Viewport
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -117,7 +118,7 @@ update msg model =
         FetchNations result ->
             case result of
                 Ok nations ->
-                    ( { model | nations = nations, error = "" }, Cmd.none )
+                    ( { model | nations = nations, error = "" }, getViewport )
 
                 Err _ ->
                     ( { model | nations = [], error = "--- Error: Problem loading nations from IJF ---" }, Cmd.none )
@@ -157,6 +158,9 @@ update msg model =
         NoOp ->
             ( model, Cmd.none )
 
+        ViewportResult viewport ->
+            ( { model | viewport = Just viewport }, Cmd.none )
+
 
 
 -- VIEW
@@ -164,19 +168,31 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    case model.device.class of
-        Element.Phone ->
-            case model.device.orientation of
-                Element.Portrait ->
-                    viewPhonePortrait model
+    case model.viewport of
+        Just viewP ->
+            let
+                classifiedDevice =
+                    Element.classifyDevice
+                        { width = round viewP.viewport.x
+                        , height = round viewP.viewport.y
+                        }
+            in
+            case classifiedDevice.class of
+                Element.Phone ->
+                    case classifiedDevice.orientation of
+                        Element.Portrait ->
+                            viewPhonePortrait model
 
-                Element.Landscape ->
-                    viewPhoneLandscape model
+                        Element.Landscape ->
+                            viewPhoneLandscape model
 
-        Element.Tablet ->
-            viewDesktop model
+                Element.Tablet ->
+                    viewDesktop model
 
-        _ ->
+                _ ->
+                    viewDesktop model
+
+        Nothing ->
             viewDesktop model
 
 
@@ -222,7 +238,7 @@ viewDesktop model =
                                                                 nat.flag
 
                                                             Nothing ->
-                                                                "🥋"
+                                                                "\u{1F94B}"
                                                 in
                                                 Element.text
                                                     (flag
@@ -404,7 +420,7 @@ viewPhonePortrait model =
                                                                 nat.flag
 
                                                             Nothing ->
-                                                                "🥋"
+                                                                "\u{1F94B}"
                                                 in
                                                 Element.text
                                                     (flag
@@ -501,6 +517,11 @@ getAthletesFromAPI nationIOC =
         { url = "https://www.ijf.org/internal_api/wrl?category=all&nation=" ++ String.toLower nationIOC
         , expect = Http.expectJson FetchAthletes athletesDecoder
         }
+
+
+getViewport : Cmd Msg
+getViewport =
+    Task.perform ViewportResult Dom.getViewport
 
 
 nationsDecoder : Json.Decode.Decoder (List Nation)
