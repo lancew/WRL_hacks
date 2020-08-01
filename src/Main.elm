@@ -401,38 +401,7 @@ viewPhonePortrait model =
     Element.layout [ Font.size 64 ] <|
         column [ width fill ]
             [ row [ width fill ]
-                [ column [ height fill, width (fillPortion 4) ]
-                    [ Element.table
-                        [ alignTop, height fill, padding 5 ]
-                        { data = model.nations
-                        , columns =
-                            [ { header = el [ Font.bold ] (Element.text "")
-                              , width = fill
-                              , view =
-                                    \nation ->
-                                        Input.button [ padding 8, Border.width 2, centerX, centerY ]
-                                            { onPress = Just (GetAthletes nation.ioc)
-                                            , label =
-                                                let
-                                                    flag =
-                                                        case Countries.fromCode nation.ioc of
-                                                            Just nat ->
-                                                                nat.flag
-
-                                                            Nothing ->
-                                                                "\u{1F94B}"
-                                                in
-                                                Element.text
-                                                    (flag
-                                                        ++ " "
-                                                        ++ nation.ioc
-                                                    )
-                                            }
-                              }
-                            ]
-                        }
-                    ]
-                , column [ width (fillPortion 10), alignTop, Font.size 40, padding 5 ]
+                [ column [ width (fillPortion 10), alignTop, Font.size 40, padding 5 ]
                     [ row [ width fill ] [ el [ centerX ] (text "Top Male:") ]
                     , row [ width fill ] [ el [ centerX ] (text (topAthlete Male model.athletes)) ]
                     , row [ width fill ] [ el [ centerX ] (text "Top female") ]
@@ -490,7 +459,40 @@ viewPhonePortrait model =
                             }
                         ]
                     ]
+                    , column [ height fill, width (fillPortion 4) ]
+                    [ Element.table
+                        [ alignTop, height fill, padding 5 ]
+                        { data = model.nations
+                        , columns =
+                            [ { header = el [ Font.bold ] (Element.text "Nation")
+                              , width = fill
+                              , view =
+                                    \nation ->
+                                        Input.button [ padding 8, Border.width 2, centerX, centerY ]
+                                            { onPress = Just (GetAthletes nation.ioc)
+                                            , label =
+                                                let
+                                                    flag =
+                                                        case Countries.fromCode nation.ioc of
+                                                            Just nat ->
+                                                                nat.flag
+
+                                                            Nothing ->
+                                                                "\u{1F94B}"
+                                                in
+                                                Element.text
+                                                    (flag
+                                                        ++ " "
+                                                        ++ nation.ioc
+                                                    )
+                                            }
+                              }
+                            ]
+                        }
+                    ]
+                
                 ]
+                
             ]
 
 
