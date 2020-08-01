@@ -45,7 +45,10 @@ This type is intentionally not opaque, as accessing the countries reference data
 
 -}
 type alias Country =
-    { name : String, code : String, flag : String }
+    { name : String
+    , code : String
+    , flag : String
+    }
 
 
 {-| Find a country by its [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) two-letter country code.
