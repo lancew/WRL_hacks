@@ -313,10 +313,10 @@ viewDesktop model =
                                                         " ↑ "
 
                                                     else if change == 0 then
-                                                        " ⭢"
+                                                        " → "
 
                                                     else
-                                                        " ⭨ "
+                                                        " ↓ "
                                             in
                                             el
                                                 [ Element.spacing 5
@@ -445,10 +445,10 @@ viewPhonePortrait model =
                                                         " ↑ "
 
                                                     else if change == 0 then
-                                                        " ⭢"
+                                                        " → "
 
                                                     else
-                                                        " ⭨ "
+                                                        " ↓ "
                                             in
                                             el
                                                 [ Element.spacing 1
