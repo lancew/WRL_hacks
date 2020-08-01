@@ -2,11 +2,12 @@ module Main exposing (Gender, athleteDecoder, athletesDecoder, main, nationDecod
 
 import Browser as Browser
 import Browser.Dom as Dom
+import Browser.Events as Events
 import Countries
-import Element exposing (alignBottom, alignLeft, alignRight, alignTop, centerX, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
+import Element exposing (alignBottom, alignLeft, alignRight, alignTop, centerX, centerY, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
-import Element.Font as Font
+import Element.Font as Font exposing (center)
 import Element.Input as Input
 import Html exposing (Html, button)
 import Html.Attributes exposing (list)
@@ -38,6 +39,7 @@ type alias Model =
     , nation : String
     , athletes : List Athlete
     , error : String
+    , device : Element.Device
     }
 
 
@@ -74,6 +76,12 @@ init _ =
       , athletes = []
       , error = ""
       , nation = ""
+      , device =
+                
+                { class = Element.Desktop
+                , orientation = Element.Landscape
+                }
+                
       }
     , getNationsFromAPI
     )
@@ -85,7 +93,7 @@ init _ =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Sub.none
+    Sub.batch [ Events.onResize (\values -> SetScreenSize values) ]
 
 
 
@@ -96,6 +104,7 @@ type Msg
     = GetAthletes String
     | FetchNations (Result Http.Error (List Nation))
     | FetchAthletes (Result Http.Error (List Athlete))
+    | SetScreenSize Int Int
     | NoOp
 
 
@@ -135,6 +144,16 @@ update msg model =
                         Http.BadBody _ ->
                             ( { model | athletes = [], error = "--- Error: Problem loading athletes from IJF. Bad Body ---" }, Cmd.none )
 
+        SetScreenSize x y ->
+            let
+                classifiedDevice =
+                    Element.classifyDevice
+                        { width = x
+                        , height = y
+                        }
+            in
+            ( { model | device = classifiedDevice }, Cmd.none )
+
         NoOp ->
             ( model, Cmd.none )
 
@@ -145,6 +164,24 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
+    case model.device.class of
+        Element.Phone ->
+            case model.device.orientation of
+                Element.Portrait ->
+                    viewPhonePortrait model
+
+                Element.Landscape ->
+                    viewPhoneLandscape model
+
+        Element.Tablet ->
+            viewDesktop model
+
+        _ ->
+            viewDesktop model
+
+
+viewDesktop : Model -> Html Msg
+viewDesktop model =
     Element.layout [ height fill, width fill, Background.gradient { angle = 3.14, steps = [ Element.rgb255 67 69 122, Element.rgb255 54 51 93 ] } ] <|
         column [ width fill, height fill ]
             [ row [ width fill, padding 10 ]
@@ -201,14 +238,16 @@ view model =
                     ]
                 , column [ padding 5, height fill, width (fillPortion 4), Border.width 1, Border.rounded 5, Background.color (Element.rgb255 255 255 255) ]
                     [ row [ width fill, padding 10 ]
-                        [ el [ centerX ] (text (
-                                                    case Countries.fromCode model.nation of
-                                                            Just nat ->
-                                                                nat.name
+                        [ el [ centerX ]
+                            (text
+                                (case Countries.fromCode model.nation of
+                                    Just nat ->
+                                        nat.name
 
-                                                            Nothing ->
-                                                                model.nation
-                                                ))
+                                    Nothing ->
+                                        model.nation
+                                )
+                            )
                         ]
                     , row [ width fill, padding 10 ]
                         [ el [ alignLeft ] (text ("Top Male: " ++ topAthlete Male model.athletes))
@@ -333,6 +372,113 @@ view model =
 
 
 
+-- If Landscape just use the same phone layout for now.
+
+
+viewPhoneLandscape : Model -> Html Msg
+viewPhoneLandscape model =
+    viewPhonePortrait model
+
+
+viewPhonePortrait : Model -> Html Msg
+viewPhonePortrait model =
+    Element.layout [ Font.size 64 ] <|
+        column [ width fill ]
+            [ row [ width fill ]
+                [ column [ height fill, width (fillPortion 4) ]
+                    [ Element.table
+                        [ alignTop, height fill, padding 5 ]
+                        { data = model.nations
+                        , columns =
+                            [ { header = el [ Font.bold ] (Element.text "")
+                              , width = fill
+                              , view =
+                                    \nation ->
+                                        Input.button [ padding 8, Border.width 2, centerX, centerY ]
+                                            { onPress = Just (GetAthletes nation.ioc)
+                                            , label =
+                                                let
+                                                    flag =
+                                                        case Countries.fromCode nation.ioc of
+                                                            Just nat ->
+                                                                nat.flag
+
+                                                            Nothing ->
+                                                                ""
+                                                in
+                                                Element.text
+                                                    (flag
+                                                        ++ " "
+                                                        ++ nation.ioc
+                                                    )
+                                            }
+                              }
+                            ]
+                        }
+                    ]
+                , column [ width (fillPortion 10), alignTop, Font.size 40, padding 5 ]
+                    [ row [ width fill ] [ el [ centerX ] (text "Top Male:") ]
+                    , row [ width fill ] [ el [ centerX ] (text (topAthlete Male model.athletes)) ]
+                    , row [ width fill ] [ el [ centerX ] (text "Top female") ]
+                    , row [ width fill ] [ el [ centerX ] (text (topAthlete Female model.athletes)) ]
+                    , row [ width fill ] [ el [ centerX ] (text "Top climber") ]
+                    , row [ width fill ] [ el [ centerX ] (text (topClimber model.athletes)) ]
+                    , row [ width fill ] [ el [ centerX ] (text "Total athletes") ]
+                    , row [ width fill ] [ el [ centerX ] (text (String.fromInt (List.length model.athletes))) ]
+                    , row [ width fill ] [ el [ centerX ] (text "Top faller") ]
+                    , row [ width fill ] [ el [ centerX ] (text (topFaller model.athletes)) ]
+                    , row [ width fill ] [ el [ centerX ] (text "---") ]
+                    , row [ width fill ]
+                        [ Element.indexedTable [ alignTop, height fill, width fill, Font.size 40 ]
+                            { data = model.athletes
+                            , columns =
+                                [ { header = el [ Font.bold ] (Element.text "")
+                                  , width = fill
+                                  , view =
+                                        \i athlete ->
+                                            let
+                                                change =
+                                                    athlete.place_prev - athlete.place
+
+                                                arrow =
+                                                    if change > 0 then
+                                                        " ⭧ "
+
+                                                    else if change == 0 then
+                                                        " ⭢"
+
+                                                    else
+                                                        " ⭨ "
+                                            in
+                                            el
+                                                [ Element.spacing 1
+                                                , Element.padding 1
+                                                , if modBy 2 i == 0 then
+                                                    Background.color (Element.rgb255 221 221 221)
+
+                                                  else
+                                                    Background.color (Element.rgb255 255 255 255)
+                                                ]
+                                                (Element.text
+                                                    (athlete.family_name
+                                                        ++ ", "
+                                                        ++ athlete.given_name
+                                                        ++ " #"
+                                                        ++ String.fromInt athlete.place
+                                                        ++ " "
+                                                        ++ arrow
+                                                    )
+                                                )
+                                  }
+                                ]
+                            }
+                        ]
+                    ]
+                ]
+            ]
+
+
+
 -- HELPERS
 
 
@@ -402,11 +548,7 @@ topAthlete gender athletes =
     in
     List.filter
         (\ath ->
-            if ath.gender == filterOn then
-                True
-
-            else
-                False
+            ath.gender == filterOn
         )
         athletes
         |> List.sortBy .place
