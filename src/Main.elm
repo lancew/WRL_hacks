@@ -310,7 +310,7 @@ viewDesktop model =
 
                                                 arrow =
                                                     if change > 0 then
-                                                        " ⭧ "
+                                                        " ↑ "
 
                                                     else if change == 0 then
                                                         " ⭢"
@@ -442,7 +442,7 @@ viewPhonePortrait model =
 
                                                 arrow =
                                                     if change > 0 then
-                                                        " ⭧ "
+                                                        " ↑ "
 
                                                     else if change == 0 then
                                                         " ⭢"
