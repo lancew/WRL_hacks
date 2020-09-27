@@ -5,7 +5,7 @@ import Expect exposing (Expectation)
 import Helpers
 import Json.Decode as D
 import Test exposing (..)
-import Types exposing (Gender(..), Athlete)
+import Types exposing (Athlete, Gender(..))
 
 
 suite : Test

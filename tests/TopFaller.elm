@@ -2,8 +2,8 @@ module TopFaller exposing (..)
 
 import Array
 import Expect exposing (Expectation)
-import Json.Decode as D
 import Helpers
+import Json.Decode as D
 import Test exposing (..)
 
 
