@@ -2,8 +2,8 @@ module AthletesDecoder exposing (..)
 
 import Array
 import Expect exposing (Expectation)
+import Helpers exposing (athleteDecoder, athletesDecoder, topAthlete, topClimber, topFaller)
 import Json.Decode as D
-import Main exposing (athleteDecoder, athletesDecoder)
 import Test exposing (..)
 
 

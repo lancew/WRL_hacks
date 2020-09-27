@@ -3,7 +3,7 @@ module NationsDecoder exposing (..)
 import Array
 import Expect exposing (Expectation)
 import Json.Decode as D
-import Main exposing (nationDecoder, nationsDecoder)
+import Helpers exposing (nationDecoder, nationsDecoder)
 import Test exposing (..)
 
 

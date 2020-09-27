@@ -3,7 +3,7 @@ module TopClimber exposing (..)
 import Array
 import Expect exposing (Expectation)
 import Json.Decode as D
-import Main
+import Helpers
 import Test exposing (..)
 
 
@@ -40,5 +40,5 @@ suite =
                           }
                         ]
                 in
-                Expect.equal (Main.topClimber athletes) "NOBODY, James: 99"
+                Expect.equal (Helpers.topClimber athletes) "NOBODY, James: 99"
         ]
