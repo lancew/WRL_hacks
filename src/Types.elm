@@ -1,7 +1,7 @@
-module Types exposing (..)
+module Types exposing (Athlete, Gender(..), Model, Msg(..), Nation)
 
 import Browser.Dom as Dom
-import Element exposing (Device)
+import Element
 import Http
 
 

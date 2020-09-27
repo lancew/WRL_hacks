@@ -1,4 +1,4 @@
-module Views exposing (..)
+module Views exposing (view)
 
 import Countries
 import Element exposing (alignBottom, alignLeft, alignRight, alignTop, centerX, centerY, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
@@ -6,10 +6,9 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font exposing (center)
 import Element.Input as Input
-import Helpers exposing (..)
+import Helpers exposing (topAthlete, topClimber, topFaller)
 import Html exposing (Html, button)
-import Html.Attributes exposing (list)
-import Types exposing (..)
+import Types exposing (Gender(..), Model, Msg(..))
 
 
 

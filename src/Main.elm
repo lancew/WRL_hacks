@@ -3,10 +3,10 @@ module Main exposing (main)
 import Browser as Browser
 import Browser.Events as Events
 import Element
-import Helpers exposing (..)
+import Helpers
 import Http
-import Types exposing (..)
-import Views exposing (..)
+import Types exposing (Model, Msg(..))
+import Views
 
 
 
@@ -19,7 +19,7 @@ main =
         { init = init
         , subscriptions = subscriptions
         , update = update
-        , view = view
+        , view = Views.view
         }
 
 
@@ -35,7 +35,7 @@ init _ =
             }
       , viewport = Nothing
       }
-    , getNationsFromAPI
+    , Helpers.getNationsFromAPI
     )
 
 
@@ -56,12 +56,12 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GetAthletes nationIOC ->
-            ( { model | nation = nationIOC }, getAthletesFromAPI nationIOC )
+            ( { model | nation = nationIOC }, Helpers.getAthletesFromAPI nationIOC )
 
         FetchNations result ->
             case result of
                 Ok nations ->
-                    ( { model | nations = nations, error = "" }, getViewport )
+                    ( { model | nations = nations, error = "" }, Helpers.getViewport )
 
                 Err _ ->
                     ( { model | nations = [], error = "--- Error: Problem loading nations from IJF ---" }, Cmd.none )
@@ -69,7 +69,7 @@ update msg model =
         FetchAthletes result ->
             case result of
                 Ok athletes ->
-                    ( { model | athletes = athletes, error = "" }, resetViewport )
+                    ( { model | athletes = athletes, error = "" }, Helpers.resetViewport )
 
                 Err theError ->
                     case theError of

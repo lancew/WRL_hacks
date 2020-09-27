@@ -4,7 +4,7 @@ import Browser.Dom as Dom
 import Http
 import Json.Decode
 import Task
-import Types exposing (..)
+import Types exposing (Athlete, Gender(..), Msg(..), Nation)
 
 
 
