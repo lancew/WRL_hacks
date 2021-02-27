@@ -19,6 +19,11 @@ Run the app with hot reload etc.
 
 ## Production environment
 
+### Build
+
 This code is accessed via the https://www.judowrl.com/ domain, but is hosted via github pages, so currently done via commiting the Elm generated index.html file to the repo.
 
+```elm make src/Main.elm --optimize```
+
+Then add, commit, and push index.html
 
