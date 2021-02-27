@@ -19,7 +19,7 @@ resetViewport =
 getNationsFromAPI : Cmd Msg
 getNationsFromAPI =
     Http.get
-        { url = "https://data.judobase.org/api/get_json?params[action]=country.get_list"
+        { url = "https://data.ijf.org/api/get_json?params[action]=country.get_list"
         , expect = Http.expectJson FetchNations nationsDecoder
         }
 
