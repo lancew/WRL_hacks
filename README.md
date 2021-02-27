@@ -9,7 +9,13 @@ Re-written in 2020 with Elm-lang.
 
 ## Dev environment
 
-...
+Run the app with hot reload etc.
+
+ ```./node_modules/elm-live/bin/elm-live.js src/Main.elm -- --debug```
+
+ ### Bumping dependencies
+ * NPM : ```npm upgrade```
+ * ELM : ```elm-json upgrade```
 
 ## Production environment
 
