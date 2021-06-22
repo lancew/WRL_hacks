@@ -46,7 +46,7 @@ type alias Nation =
 
 type alias Athlete =
     { family_name : String
-    , gender : String
+    , gender : Gender
     , given_name : String
     , place : Int
     , place_prev : Int

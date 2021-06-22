@@ -4,10 +4,10 @@ import Countries
 import Element exposing (alignBottom, alignLeft, alignRight, alignTop, centerX, centerY, column, el, fill, fillPortion, height, padding, row, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
-import Element.Font as Font exposing (center)
+import Element.Font as Font
 import Element.Input as Input
-import Helpers exposing (topAthlete, topClimber, topFaller)
-import Html exposing (Html, button)
+import Helpers exposing (topAthlete)
+import Html exposing (Html)
 import Types exposing (Gender(..), Model, Msg(..))
 
 
@@ -66,7 +66,7 @@ viewDesktop model =
                               , view =
                                     \nation ->
                                         Input.button []
-                                            { onPress = Just (GetAthletes nation.ioc)
+                                            { onPress = Just (GetAthletes nation.id_country)
                                             , label =
                                                 let
                                                     flag =
@@ -98,7 +98,7 @@ viewDesktop model =
                                         nat.name
 
                                     Nothing ->
-                                        model.nation
+                                        ""
                                 )
                             )
                         ]
@@ -108,12 +108,12 @@ viewDesktop model =
                         , el [ alignRight ] (text ("Top Female: " ++ topAthlete Female model.athletes))
                         ]
                     , row [ width fill, padding 10 ]
-                        [ el [ alignLeft ] (text ("Top Climber: " ++ topClimber model.athletes))
-                        , el [ alignRight ] (text ("Top Faller: " ++ topFaller model.athletes))
+                        [ --el [ alignLeft ] (text ("Top Climber: " ++ topClimber model.athletes))
+                        --, el [ alignRight ] (text ("Top Faller: " ++ topFaller model.athletes))
                         ]
                     , row [ padding 10, width fill ]
                         [ Element.indexedTable [ alignTop, height fill ]
-                            { data = model.athletes
+                            { data = (List.sortBy .place model.athletes )
                             , columns =
                                 [ { header = el [ Font.bold ] (Element.text "Athletes")
                                   , width = fill
@@ -186,13 +186,13 @@ viewDesktop model =
                                                         ++ " ("
                                                         ++ String.fromInt athlete.sum_points
                                                         ++ " points) "
-                                                        ++ arrow
-                                                        ++ (if change /= 0 then
-                                                                String.fromInt change
+                                                    --    ++ arrow
+                                                    --    ++ (if change /= 0 then
+                                                    --            String.fromInt change
 
-                                                            else
-                                                                ""
-                                                           )
+                                                    --        else
+                                                    --            ""
+                                                    --       )
                                                     )
                                                 )
                                   }
@@ -243,12 +243,12 @@ viewPhonePortrait model =
                     , row [ width fill ] [ el [ centerX ] (text (topAthlete Male model.athletes)) ]
                     , row [ width fill ] [ el [ centerX ] (text "Top female") ]
                     , row [ width fill ] [ el [ centerX ] (text (topAthlete Female model.athletes)) ]
-                    , row [ width fill ] [ el [ centerX ] (text "Top climber") ]
-                    , row [ width fill ] [ el [ centerX ] (text (topClimber model.athletes)) ]
+        --            , row [ width fill ] [ el [ centerX ] (text "Top climber") ]
+        --            , row [ width fill ] [ el [ centerX ] (text (topClimber model.athletes)) ]
                     , row [ width fill ] [ el [ centerX ] (text "Total athletes") ]
                     , row [ width fill ] [ el [ centerX ] (text (String.fromInt (List.length model.athletes))) ]
-                    , row [ width fill ] [ el [ centerX ] (text "Top faller") ]
-                    , row [ width fill ] [ el [ centerX ] (text (topFaller model.athletes)) ]
+        --            , row [ width fill ] [ el [ centerX ] (text "Top faller") ]
+        --            , row [ width fill ] [ el [ centerX ] (text (topFaller model.athletes)) ]
                     , row [ width fill ] [ el [ centerX ] (text "---") ]
                     , row [ width fill ]
                         [ Element.indexedTable [ alignTop, height fill, width fill, Font.size 40 ]
