@@ -27,3 +27,7 @@ This code is accessed via the https://www.judowrl.com/ domain, but is hosted via
 
 Then add, commit, and push index.html
 
+### Hosting
+
+Currently the site is served via Netlify.com
+
