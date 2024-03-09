@@ -9,13 +9,16 @@ Re-written in 2020 with Elm-lang.
 
 ## Dev environment
 
+### Dependency installation
+
+* ```npm install elm-json```
 Run the app with hot reload etc.
 
  ```./node_modules/elm-go/bin/elm-go.js src/Main.elm -- --debug```
 
  ### Bumping dependencies
  * NPM : ```npm upgrade```
- * ELM : ```elm-json upgrade```
+ * ELM : ```./node_modules/elm-json/bin/elm-json upgrade```
 
 ## Production environment
 
