@@ -2,6 +2,7 @@
   "dependencies": {
     "elm": "^0.19.1-5",
     "elm-format": "^0.8.5",
-    "elm-go": "^5.0.13"
+    "elm-go": "^5.0.13",
+    "elm-json": "^0.2.13"
   }
 }
